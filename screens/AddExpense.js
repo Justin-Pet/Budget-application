@@ -1,0 +1,167 @@
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Text,
+  Dimensions,
+  Button,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+
+import { GlobalStyles } from "../constants/GlobalStyles";
+
+import CategoriesPart from "../components/AddEditScreens/CategoriesPart";
+import { useContext } from "react";
+import { ExpenseEntriesContext } from "../store/context/ExpenseEntriesContext";
+
+import AddEditAmount from "../components/AddEditScreens/AddEditAmount";
+import AddEditComments from "../components/AddEditScreens/AddEditComments";
+import PrimaryButton from "../components/AddEditScreens/PrimaryButton";
+
+import { useLanguage } from "../store/context/LanguageContext";
+
+import DatePicker from "../components/AddEditScreens/DatePicker";
+import WalletSelector from "../components/AddEditScreens/WalletSelector";
+import ReoccuringPaymentSelector from "../components/AddEditScreens/ReoccuringPaymentSelector";
+
+const { width, height } = Dimensions.get("window");
+function AddExpense() {
+  const navigator = useNavigation();
+  const { translate } = useLanguage();
+  const expenseCtx = useContext(ExpenseEntriesContext);
+  const [category, setCategory] = useState("");
+  const [amount, setAmount] = useState("");
+  const [comment, setComment] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [type, setType] = useState("expense");
+  const [currentWallet, setCurrentWallet] = useState();
+  const [reoccuringPayment, setReoccuringPayment] = useState(false);
+
+  function addExpenseToStore() {
+    if (reoccuringPayment) {
+      if (category === "" || amount === "") {
+        return alert("Please enter a category and amount");
+      } else {
+        expenseCtx.addReoccuringExpense(
+          category,
+          date,
+          parseFloat(amount),
+          comment,
+          type,
+          currentWallet
+        );
+      }
+    } else {
+      if (category === "" || amount === "") {
+        return alert("Please enter a category and amount");
+      } else {
+        if (type === "expense") {
+          expenseCtx.subtractWallet(parseFloat(amount), currentWallet);
+        } else {
+          expenseCtx.addWallet(parseFloat(amount), currentWallet);
+        }
+        expenseCtx.addExpense(
+          category,
+          date,
+          parseFloat(amount),
+          comment,
+          type,
+          currentWallet
+        );
+      }
+    }
+
+    // Navigate back to the BottomTabs and then to the Summary screen
+    navigator.navigate("BottomTabs", { screen: "Summary" });
+  }
+  return (
+    <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+      <View style={styles.rootContainer}>
+        <View style={styles.detailsContainer}>
+          <View style={styles.amountAndCategoryContainer}>
+            <AddEditAmount
+              amount={amount}
+              setAmount={setAmount}
+              amountFocus={true}
+            />
+            <WalletSelector
+              currentWallet={currentWallet}
+              setCurrentWallet={setCurrentWallet}
+            />
+            <View style={styles.categoryContainer}>
+              <CategoriesPart
+                category={category}
+                setCategory={setCategory}
+                type={type}
+                setType={setType}
+              />
+            </View>
+          </View>
+          <View style={styles.commentsAndDateContainer}>
+            <DatePicker date={date} setDate={setDate} />
+            <AddEditComments comment={comment} setComment={setComment} />
+            <ReoccuringPaymentSelector
+              reoccuringPayment={reoccuringPayment}
+              setReoccuringPayment={setReoccuringPayment}
+            />
+          </View>
+        </View>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton
+            buttonText={translate("addExpense")}
+            onPress={addExpenseToStore}
+            buttonColor={{ backgroundColor: GlobalStyles.colors.button }}
+          />
+        </View>
+      </View>
+    </ScrollView>
+  );
+}
+
+export default AddExpense;
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+
+    justifyContent: "space-between",
+    backgroundColor: GlobalStyles.colors.backgroundMain,
+  },
+  detailsContainer: {
+    flex: 1,
+
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  amountAndCategoryContainer: {
+    alignItems: "center",
+    width: "100%",
+  },
+
+  commentsAndDateContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+
+  dateText: {
+    fontSize: height > 800 ? 15 : 12,
+    fontWeight: "bold",
+    color: GlobalStyles.colors.textColor,
+  },
+  buttonContainer: {
+    alignItems: "center",
+    marginBottom: height > 800 ? 30 : 20,
+  },
+
+  selectorContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: width > 400 ? 50 : 20,
+    marginBottom: height > 800 ? 15 : 10,
+  },
+  categoryContainer: {
+    width: "100%",
+  },
+});
