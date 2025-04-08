@@ -5,14 +5,15 @@ import { useLanguage } from "../../store/context/LanguageContext";
 import { GlobalStyles } from "../../constants/GlobalStyles";
 
 const { width, height } = Dimensions.get("window");
-function AddEditAmount({ amount, setAmount, amountFocus=false }) {
+function AddEditAmount({ amount, setAmount, amountFocus = false }) {
   const allowedChars = /^[0-9+\.]*$/;
   const { language, translate } = useLanguage();
 
-  function handleInput(input){
-    if(allowedChars.test(input)){
+  function handleInput(input) {
+    if (allowedChars.test(input)) {
       setAmount(input);
-  }}
+    }
+  }
 
   return (
     <View style={styles.rootContainer}>
@@ -25,7 +26,9 @@ function AddEditAmount({ amount, setAmount, amountFocus=false }) {
         onChangeText={handleInput}
         autoFocus={amountFocus}
       />
-      <Text style={[styles.amountContainer, styles.textBorder]}>{translate("amount")}</Text>
+      <Text style={[styles.amountContainer, styles.textBorder]}>
+        {translate("amount")}
+      </Text>
     </View>
   );
 }
@@ -38,12 +41,13 @@ const styles = StyleSheet.create({
   },
   amountContainer: {
     color: GlobalStyles.colors.primary500,
-    fontSize: height > 800 ? 35 : 25,
+    fontSize: height * 0.05,
     fontWeight: "bold",
     textAlign: "center",
   },
   textBorder: {
     borderTopWidth: 2,
+    fontSize: height * 0.035,
     borderColor: GlobalStyles.colors.primary500,
     width: "50%",
     alignSelf: "center",

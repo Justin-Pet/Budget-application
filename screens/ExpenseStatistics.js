@@ -317,13 +317,13 @@ function ExpenseStatistics() {
         <View style={styles.chartsContainer}>{renderDiagram()}</View>
 
         <Pressable
-          style={({ pressed }) => pressed && styles.onPress}
+          style={[[styles.switchButton,({ pressed }) => pressed && styles.onPress]]}
           onPress={handleChartChange}
         >
           <View style={styles.buttonContainer}>
             <Ionicons
               name={"repeat"}
-              size={22}
+              size={height * 0.03}
               color={GlobalStyles.colors.iconColor}
             />
           </View>
@@ -341,18 +341,26 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.backgroundMain,
     justifyContent: "flex-start",
     // alignItems: "center",
-    paddingVertical: height > 800 ? 10 : 5,
+    paddingVertical: height * 0.02,
   },
 
+  switchButton:{
+    position: "absolute",
+ bottom: height * 0.05,
+    right: height * 0.03,
+  },
   barContainer: {
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    flex: 1,
+    height: "100%",
+    // flex: 1,
+    backgroundColor: "red",
+
   },
   barChart: {
+    width: "100%",
     justifyContent: "center",
-    alignItems: "center",
   },
   barButtonContainer: {
     width: "100%",
@@ -373,7 +381,7 @@ const styles = StyleSheet.create({
   },
 
   pieButtonContainer: {
-    marginVertical: height > 950 ? 20 : 3,
+    marginVertical: height * 0.02,
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
@@ -383,7 +391,7 @@ const styles = StyleSheet.create({
   },
 
   innerContainer: {
-    marginVertical: height > 800 ? 10 : 1,
+    marginVertical: height * 0.01,
   },
   chartsContainer: {
     flex: 2,
@@ -393,24 +401,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 25,
-    paddingVertical: height > 800 ? 3 : 0,
+    paddingVertical: height * 0.005,
     borderBottomWidth: 1,
     borderBottomColor: GlobalStyles.colors.accentColor,
     borderStyle: "dotted",
   },
   statsHeader: {
     textAlign: "center",
-    fontSize: width > 400 ? 25 : 20,
+    fontSize: height * 0.025,
     fontWeight: "bold",
     color: GlobalStyles.colors.headerColor,
-    marginVertical: height > 800 ? 3 : 0,
+    marginVertical: height * 0.01,
   },
   statsText: {
-    fontSize: width > 400 ? 17 : 15,
+    fontSize: height * 0.018,
     color: GlobalStyles.colors.textColor,
   },
   statsAmount: {
-    fontSize: width > 400 ? 20 : 17,
+    fontSize: height * 0.018,
     fontWeight: "bold",
   },
   income: {
@@ -421,10 +429,10 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    backgroundColor: GlobalStyles.colors.button,
-    marginTop: height > 800 ? 10 : 5,
-    paddingVertical: height > 800 ? 3 : 2,
-    paddingHorizontal: height > 800 ? 20 : 10,
+    // backgroundColor: GlobalStyles.colors.button,
+    marginTop: height * 0.02,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: height * 0.02,
 
     borderRadius: 12,
     alignSelf: "center",

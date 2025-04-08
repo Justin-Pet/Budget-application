@@ -13,36 +13,24 @@ function AmountPart({ amount, text, containerStyle }) {
   );
 }
 
-function getFontSize(){
-  if (height > 950) {
-    return 50;
-  }
-  else if (height > 800) {
-    return 40;
-  }
-  else {
-    return 25;
-    
-  }
-}
 
 export default AmountPart;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    // borderBottomWidth: 2,
     borderRadius: 20,
     backgroundColor: GlobalStyles.colors.accentColor2,
+    padding: height * 0.015,
 
   },
   amountContainer: {
     color: GlobalStyles.colors.headerColor,
-    // fontSize: height > 800 ? 50 : 35,
-    fontSize: getFontSize(),
+    fontSize: height * 0.05,
     fontWeight: "bold",
     textAlign: "center",
   },
   textStyle: { 
-    fontSize: height > 800 ? 20 : 15, 
-    marginVertical: height > 800 ? 8 : 5,},
+    fontSize: height * 0.020,
+    marginVertical: height * 0.01,},
+
 });

@@ -26,10 +26,10 @@ export default AddEditComments;
 
 const styles = StyleSheet.create({
   commentsContainer: {
-    borderBottomWidth: height > 800 ? 1 : 1,
+    borderBottomWidth: height * 0.001,
     borderBottomColor: GlobalStyles.colors.backGroundSecondary,
     borderRadius: 10,
-    marginVertical: height > 800 ? 8 : 5,
+    marginVertical: height * 0.015,
 
     color: "white",
     width: "60%",
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontWeight: "bold",
-    fontSize: height > 800 ? 15 : 12,
+    fontSize: height * 0.015,
     color: GlobalStyles.colors.textColor,
   },
 });

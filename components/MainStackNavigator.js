@@ -34,7 +34,7 @@ function MainStackNavigator() {
           },
           tabBarLabelStyle: {
             fontWeight: "bold",
-            fontSize: 10,
+            fontSize: height * 0.011,
           },
           tabBarActiveTintColor: GlobalStyles.colors.tabBarActive,
           tabBarInactiveTintColor: GlobalStyles.colors.tabBarInactive,
@@ -156,7 +156,7 @@ function MainStackNavigator() {
 
           headerTintColor: GlobalStyles.colors.headerColor,
           headerTitleStyle: {
-            fontSize: height > 800 ? 22 : 18,
+            // fontSize: height * 0.02,
           },
           headerStyle: {
             backgroundColor: GlobalStyles.colors.backgroundMain,

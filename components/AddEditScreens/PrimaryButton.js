@@ -29,15 +29,15 @@ export default PrimaryButton;
 const styles = StyleSheet.create({
   buttonContainer: {
     width: "70%",
-    padding: height > 800 ? 15 : 7,
+    padding: height * 0.015,
     borderRadius: 12,
     backgroundColor: GlobalStyles.colors.accent500,
-    marginTop: height > 800 ? 25 : 10,
+    marginTop: height * 0.02,
   },
   text: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: width > 400 ? 25 : 20,
+    fontSize: height * 0.025,
     color: GlobalStyles.colors.primary700,
   },
   pressed: {

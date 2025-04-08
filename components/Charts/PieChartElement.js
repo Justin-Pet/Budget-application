@@ -23,10 +23,9 @@ function PieChartElement({ pieChartAllShown }) {
   const [pieShown, setPieShown] = useState(true);
   const [pieData, setPieData] = useState([]);
 
-
   useEffect(() => {
-  getPieData(); 
-  },[pieMonth]) 
+    getPieData();
+  }, [pieMonth]);
   function totalExpenseAmountPerCategory() {
     let categories = [
       {
@@ -170,7 +169,6 @@ function PieChartElement({ pieChartAllShown }) {
     }
   }
 
-  
   function getPieRadius() {
     if (height > 950) {
       return 150;
@@ -182,7 +180,6 @@ function PieChartElement({ pieChartAllShown }) {
   }
 
   function getPieData() {
-
     let categories = [
       {
         description: "Groceries",
@@ -246,8 +243,7 @@ function PieChartElement({ pieChartAllShown }) {
     if (totalAmount == 0) {
       setPieShown(false);
       return 0;
-    }
-    else {
+    } else {
       setPieShown(true);
     }
 
@@ -330,63 +326,63 @@ function PieChartElement({ pieChartAllShown }) {
 
   function handleNextMonth() {
     setPieMonth(new Date(pieMonth.getFullYear(), pieMonth.getMonth() + 1, 15));
-
   }
 
   function handlePreviousMonth() {
     setPieMonth(new Date(pieMonth.getFullYear(), pieMonth.getMonth() - 1, 15));
-
   }
 
   function renderContent() {
     if (pieShown) {
       return (
-        <PieChart
-          donut
-          showGradient
-          sectionAutoFocus
-          // radius={140}
-          // innerRadius={70}
-          radius={getPieRadius()}
-          innerRadius={getPieRadius() / 2}
-          innerCircleColor={GlobalStyles.colors.backgroundMain}
-          // isThreeD
-          showText
-          textColor="black"
-          textSize={height > 800 ? 12 : 9}
-          textBackgroundRadius={15}
-          fontWeight="bold"
-          // showValuesAsLabels
-          data={pieData}
-          // labelsPosition= "onBorder"
-          innerOpacity={1}
-          focusOnPress
-          centerLabelComponent={() => {
-            if (false) {
-              return (
-                <View style={styles.centerLabelContainer}>
-                  <Text style={styles.centerLabelText}>
-                    {translate("TotalBalance")}
-                  </Text>
-                  <Text style={styles.centerLabelText}>
-                    {calculateTotalBalance()}
-                  </Text>
-                </View>
-              );
-            } else {
-              return (
-                <View style={styles.centerLabelContainer}>
-                  <Text style={styles.centerLabelText}>
-                    {translate("MonthlyBalance")}
-                  </Text>
-                  <Text style={styles.centerLabelText}>
-                    {calculateCurrentMonthBalance()}
-                  </Text>
-                </View>
-              );
-            }
-          }}
-        />
+        <View style={styles.pieChartContainer}>
+          <PieChart
+            donut
+            showGradient
+            sectionAutoFocus
+            // radius={140}
+            // innerRadius={70}
+            radius={height * 0.18}
+            innerRadius={height * 0.09}
+            innerCircleColor={GlobalStyles.colors.backgroundMain}
+            // isThreeD
+            showText
+            textColor="black"
+            textSize={height * 0.015}
+            textBackgroundRadius={height * 0.01}
+            fontWeight="bold"
+            // showValuesAsLabels
+            data={pieData}
+            // labelsPosition= "onBorder"
+            innerOpacity={1}
+            focusOnPress
+            centerLabelComponent={() => {
+              if (false) {
+                return (
+                  <View style={styles.centerLabelContainer}>
+                    <Text style={styles.centerLabelText}>
+                      {translate("TotalBalance")}
+                    </Text>
+                    <Text style={styles.centerLabelText}>
+                      {calculateTotalBalance()}
+                    </Text>
+                  </View>
+                );
+              } else {
+                return (
+                  <View style={styles.centerLabelContainer}>
+                    <Text style={styles.centerLabelText}>
+                      {translate("MonthlyBalance")}
+                    </Text>
+                    <Text style={styles.centerLabelText}>
+                      {calculateCurrentMonthBalance()}
+                    </Text>
+                  </View>
+                );
+              }
+            }}
+          />
+        </View>
       );
     } else {
       return (
@@ -407,22 +403,22 @@ function PieChartElement({ pieChartAllShown }) {
         {renderContent()}
       </View>
 
-      <View style ={styles.bottomContainer}>
-        <View>
-          <Text style={styles.dateText}>{getFormatedDateYM(pieMonth)}</Text>
-        </View>
+      <View style={styles.bottomContainer}>
         <View style={styles.buttonContainer}>
           <SimpleIconButton onPress={handlePreviousMonth}>
             <Ionicons
               name="arrow-back"
-              size={22}
+              size={height * 0.035}
               color={GlobalStyles.colors.accentColor}
             />
           </SimpleIconButton>
+
+          <Text style={styles.dateText}>{getFormatedDateYM(pieMonth)}</Text>
+
           <SimpleIconButton onPress={handleNextMonth}>
             <Ionicons
               name="arrow-forward"
-              size={22}
+              size={height * 0.035}
               color={GlobalStyles.colors.accentColor}
             />
           </SimpleIconButton>
@@ -439,46 +435,53 @@ const styles = StyleSheet.create({
   centerLabelText: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: height > 800 ? 15 : 12,
+    fontSize: height * 0.015,
     color: GlobalStyles.colors.textColor,
   },
   barChartTitle: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 20 : 17,
+    fontSize: height * 0.02,
     textAlign: "center",
     color: GlobalStyles.colors.headerColor,
   },
 
   rootContainer: {
     alignItems: "center",
-    justifyContent: "space-between",
     height: "100%",
-    
+    justifyContent: "space-between",
 
+    marginBottom: height * 0.01,
   },
   buttonContainer: {
     flexDirection: "row",
-  },
-  bottomContainer:{
     justifyContent: "center",
     alignItems: "center",
-
+    marginVertical: height * 0.01,
+  },
+  bottomContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   noDataContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: height > 800 ? 70 : 50,
-
+    marginTop: height * 0.15,
   },
   noDataText: {
     fontWeight: "bold",
-    fontSize: height > 800 ? 20 : 17,
+    fontSize: height * 0.025,
     color: GlobalStyles.colors.accentColor,
   },
-  dateText:{
+  dateText: {
     fontWeight: "bold",
-    fontSize: height > 800 ? 20 : 17,
-    color: GlobalStyles.colors.accentColor,
-  }
+    fontSize: height * 0.025,
+    textAlign: "center",
+    color: GlobalStyles.colors.textColor,
+  },
+  pieChartContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red ",
+  },
 });

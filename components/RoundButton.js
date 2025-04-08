@@ -24,10 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    // bottom: -65,
-    // right: -175,
     bottom: height > 800 ? 20 : 10,
-    right: 50,
+    right: 25,
   },
   pressed:{
     opacity: 0.75

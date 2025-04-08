@@ -266,13 +266,13 @@ function AllExpenses() {
               save="value"
               // defaultOption={{ key: "All", value: "All" }}
               inputStyles={{
-                fontSize: width > 400 ? 20 : 15,
+                fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
               boxStyles={{ backgroundColor: GlobalStyles.colors.backGroundSecondary }}
               dropdownTextStyles={{
-                fontSize: 18,
+                fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
@@ -300,13 +300,13 @@ function AllExpenses() {
               data={monthData}
               save="value"
               inputStyles={{
-                fontSize: width > 400 ? 20 : 15,
+                fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
               boxStyles={{ backgroundColor: GlobalStyles.colors.backGroundSecondary }}
               dropdownTextStyles={{
-                fontSize: 18,
+                fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
@@ -333,7 +333,7 @@ function AllExpenses() {
         </View>
       </SafeAreaView>
       <RoundButton pressHandler={addPressHandler}>
-        <Ionicons name="add" size={22} color= {GlobalStyles.colors.iconColor} />
+        <Ionicons name="add" size={height * 0.03} color= {GlobalStyles.colors.iconColor} />
       </RoundButton>
     </>
   );
@@ -344,17 +344,17 @@ export default AllExpenses;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    paddingTop: height > 800 ? 10 : 5,
-    paddingHorizontal: width > 400 ? 20 : 15,
+    paddingTop: height * 0.02,
+    paddingHorizontal: height * 0.02,
     justifyContent: "flex-start",
     backgroundColor: GlobalStyles.colors.backgroundMain,
   },
   dateHeaderContainer: {
-    paddingVertical: height > 800 ? 10 : 5,
-    paddingHorizontal: width * 0.05,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: height * 0.01,
   },
   dateHeaderText: {
-    fontSize: height > 800 ? 25 : 20,
+    fontSize: height * 0.02,
     fontWeight: "bold",
     color: GlobalStyles.colors.headerColor,
   },
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   },
 
   expensesContainer: {
-    marginBottom: 120,
+    // marginBottom: 120,
   },
 
   filterYear: {
@@ -376,11 +376,11 @@ const styles = StyleSheet.create({
   },
   expensesAmountContainer: {
     justifyContent: "center",
-    paddingVertical: height > 800 ? 10 : 8,
-    paddingHorizontal: width * 0.05,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: height * 0.02,
   },
   expensesAmountText: {
-    fontSize: height > 800 ? 30 : 20,
+    fontSize: height * 0.03,
     fontWeight: "bold",
 
     textDecorationLine: "underline",

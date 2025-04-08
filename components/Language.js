@@ -31,7 +31,7 @@ function Language() {
           <View style={styles.iconContainer}>
             <Ionicons
               name={currentLanguage === "lt" ? "ellipse" : "ellipse-outline"}
-              size={22}
+              size={height * 0.025}
               color={GlobalStyles.colors.iconColor}
             />
           </View>
@@ -47,7 +47,7 @@ function Language() {
           <View style={styles.iconContainer}>
             <Ionicons
               name={currentLanguage === "en" ? "ellipse" : "ellipse-outline"}
-              size={22}
+              size={height * 0.025}
               color={GlobalStyles.colors.iconColor}
             />
           </View>
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
 
   languageOptionsContainer: {
     flexDirection: "row",
-    paddingHorizontal: width > 300 ? 30 : 20,
-    paddingVertical: height > 800 ? 15 : 10,
-    marginVertical: height > 800 ? 10 : 5,
+    paddingHorizontal: height * 0.03,
+    paddingVertical: height * 0.02,
+    marginVertical: height * 0.01,
     borderRadius: 10,
     backgroundColor: GlobalStyles.colors.backGroundSecondary,
     justifyContent: "space-between",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   mainText: {
     color: GlobalStyles.colors.headerColor,
     fontWeight: "bold",
-    fontSize: width > 400 ? 17 : 15,
+    fontSize: height * 0.02,
   },
 
   pressed: {

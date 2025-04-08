@@ -57,10 +57,10 @@ function Tips() {
 
       <View style={styles.buttonContainer}>
         <Pressable onPress={previousTipHandler}>
-          <Ionicons name="arrow-back" size={35} color= {GlobalStyles.colors.iconColor} />
+          <Ionicons name="arrow-back" size={height * 0.05} color= {GlobalStyles.colors.iconColor} />
         </Pressable>
         <Pressable onPress={nextTipHandler}>
-          <Ionicons name="arrow-forward" size={35} color={GlobalStyles.colors.iconColor} />
+          <Ionicons name="arrow-forward" size={height * 0.05} color={GlobalStyles.colors.iconColor} />
         </Pressable>
       </View>
     </SafeAreaView>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignContent: "center",
     backgroundColor: GlobalStyles.colors.backgroundMain,
-    paddingVertical: height > 800 ? 20 : 10,
-    paddingHorizontal: width > 400 ? 30 : 20,
+    paddingVertical: height * 0.05,
+    paddingHorizontal: height * 0.025,
   },
 
 
@@ -88,15 +88,14 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: "bold",
     color: GlobalStyles.colors.headerColor,
-    fontSize: width > 400 ? 43 : 35,
-    // marginTop: height > 800 ? 130 : 100,
+    fontSize: height * 0.05,
     textAlign: "left",
     textDecorationLine: "underline",
   },
   text: {
     color: GlobalStyles.colors.headerColor,
-    marginVertical: 30,
-    fontSize: width > 400 ? 23 : 18,
+    marginVertical: height * 0.03,
+    fontSize: height * 0.025,
     textAlign: "justify",
   },
 });

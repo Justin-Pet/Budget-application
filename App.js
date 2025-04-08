@@ -43,8 +43,9 @@ export default function App() {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
+    backgroundColor: "red",
+    // alignItems: "center",
+    // justifyContent: "space-between",
   },
   navBar: {
     flex: 1,

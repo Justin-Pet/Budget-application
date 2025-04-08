@@ -218,7 +218,7 @@ export default CategoriesPart;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginTop: height > 800 ? 20 : 15,
+    marginTop: height * 0.025,
 
   },
 
@@ -230,26 +230,26 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: width > 400 ? 50 : 20,
-    marginBottom: height > 800 ? 15 : 10,
+    marginHorizontal: height * 0.05,
+    marginBottom: height * 0.02,
   },
 
   activeType: {
     flex: 1,
     backgroundColor: GlobalStyles.colors.backGroundSecondary,
-    paddingVertical: height > 800 ? 10 : 5,
-    paddingHorizontal: width > 400 ? 20 : 10,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: height * 0.02,
   },
   inactiveType: {
     flex: 1,
     backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
-    paddingVertical: height > 800 ? 10 : 5,
-    paddingHorizontal: width > 400 ? 20 : 10,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: height * 0.02,
   },
   typeText: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: height > 800 ? 15 : 12,
+    fontSize: height * 0.02,
   },
   expenseItem: {
     borderTopLeftRadius: 10,

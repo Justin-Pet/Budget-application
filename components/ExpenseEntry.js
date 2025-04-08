@@ -63,9 +63,9 @@ function ExpenseEntry({ itemData, style }) {
         colors={[
           // "#0FA4AF",
           // "#4ccad3c5",
-          "#1dd5cc","#359a95"
+          "#1dd5cc",
+          "#359a95",
         ]}
-        
         style={[styles.gradientContainer, styles.expenseContainer, style]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -77,7 +77,14 @@ function ExpenseEntry({ itemData, style }) {
             {getFormattedDate(itemData.item.date)}
           </Text>
         </View>
-        <Text style={[styles.expenseAmount,itemData.item.type === "expense" ? styles.expenseAmountBackground : styles.incomeAmountBackground]}>
+        <Text
+          style={[
+            styles.expenseAmount,
+            itemData.item.type === "expense"
+              ? styles.expenseAmountBackground
+              : styles.incomeAmountBackground,
+          ]}
+        >
           {itemData.item.type === "expense" ? "-" : "+"}
           {"\u20AC"}
           {parseFloat(itemData.item.amount).toFixed(2)}
@@ -88,15 +95,7 @@ function ExpenseEntry({ itemData, style }) {
   );
 }
 
-function returnPaddingVertical() {
-  if (height > 950) {
-    return 15;
-  } else if (height > 800) {
-    return 8;
-  } else {
-    return 5;
-  }
-}
+
 export default ExpenseEntry;
 
 const styles = StyleSheet.create({
@@ -107,43 +106,38 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-
-    marginVertical: height > 800 ? 5 : 3,
-
-    paddingHorizontal: width > 400 ? 20 : 15,
-    paddingVertical: returnPaddingVertical(),
+    marginVertical: height * 0.005,
+    paddingHorizontal: height * 0.02,
+    paddingVertical: height * 0.015,
     borderRadius: 12,
   },
 
   expense: {
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 18 : 14,
+    fontSize: height * 0.018,
     fontWeight: "bold",
   },
   date: {
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 15 : 12,
+    fontSize: height * 0.015,
   },
   expenseAmount: {
-    width: width > 400 ? 130 : 100,
+    width: height* 0.15,
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 18 : 15,
+    fontSize: height * 0.018,
     fontWeight: "bold",
-    // backgroundColor: GlobalStyles.colors.accentColor,
-    // backgroundColor: itemData.type === "expense" ? "#f8b5b5" : "#a1d6ff",
+    paddingVertical: height * 0.01,
     borderRadius: 12,
-    paddingHorizontal: width > 400 ? 5 : 3,
-    paddingVertical: height > 800 ? 5 : 3,
     textAlign: "center",
   },
 
   onPress: {
     opacity: 0.75,
   },
-  expenseAmountBackground:{
+  expenseAmountBackground: {
     backgroundColor: GlobalStyles.colors.accentColor,
   },
-  incomeAmountBackground:{
-    backgroundColor: "green"
-  }
+  incomeAmountBackground: {
+    backgroundColor: "green",
+  },
 });

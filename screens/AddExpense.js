@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { GlobalStyles } from "../constants/GlobalStyles";
 
@@ -26,8 +26,8 @@ import DatePicker from "../components/AddEditScreens/DatePicker";
 import WalletSelector from "../components/AddEditScreens/WalletSelector";
 import ReoccuringPaymentSelector from "../components/AddEditScreens/ReoccuringPaymentSelector";
 
-const { width, height } = Dimensions.get("window");
-function AddExpense() {
+const { height } = Dimensions.get("window");
+function AddExpense({route, navigation}) {
   const navigator = useNavigation();
   const { translate } = useLanguage();
   const expenseCtx = useContext(ExpenseEntriesContext);
@@ -38,6 +38,20 @@ function AddExpense() {
   const [type, setType] = useState("expense");
   const [currentWallet, setCurrentWallet] = useState();
   const [reoccuringPayment, setReoccuringPayment] = useState(false);
+
+
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <WalletSelector
+        currentWallet={currentWallet}
+        setCurrentWallet={setCurrentWallet}
+      />
+     ),
+    });
+  }, [navigation]);
+
 
   function addExpenseToStore() {
     if (reoccuringPayment) {
@@ -86,10 +100,7 @@ function AddExpense() {
               setAmount={setAmount}
               amountFocus={true}
             />
-            <WalletSelector
-              currentWallet={currentWallet}
-              setCurrentWallet={setCurrentWallet}
-            />
+         
             <View style={styles.categoryContainer}>
               <CategoriesPart
                 category={category}
@@ -143,24 +154,14 @@ const styles = StyleSheet.create({
   commentsAndDateContainer: {
     width: "100%",
     alignItems: "center",
+    justifyContent: "flex-start",
   },
 
-  dateText: {
-    fontSize: height > 800 ? 15 : 12,
-    fontWeight: "bold",
-    color: GlobalStyles.colors.textColor,
-  },
   buttonContainer: {
     alignItems: "center",
-    marginBottom: height > 800 ? 30 : 20,
+    marginBottom: height * 0.03,
   },
 
-  selectorContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: width > 400 ? 50 : 20,
-    marginBottom: height > 800 ? 15 : 10,
-  },
   categoryContainer: {
     width: "100%",
   },

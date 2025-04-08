@@ -10,7 +10,8 @@ export default SettingsHeader;
 const styles = StyleSheet.create({
   headerText: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 30 : 23,
+    fontSize: height * 0.035,
+    paddingTop: height * 0.015,
     textDecorationLine: "underline",
     color: GlobalStyles.colors.headerColor,
   },

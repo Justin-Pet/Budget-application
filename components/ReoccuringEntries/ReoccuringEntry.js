@@ -6,6 +6,7 @@ import { useLanguage } from "../../store/context/LanguageContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ExpenseEntriesContext } from "../../store/context/ExpenseEntriesContext";
 import { useContext } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 function ReoccuringEntry({ itemData, style }) {
@@ -56,6 +57,18 @@ function test () {
 
   return (
     <Pressable style={({ pressed }) => pressed && styles.onPress} onPress={test}>
+        <LinearGradient
+              // Button Linear Gradient
+              colors={[
+                // "#0FA4AF",
+                // "#4ccad3c5",
+                "#1dd5cc",
+                "#359a95",
+              ]}
+              style={[styles.gradientContainer, styles.expenseContainer, style]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+            >
       <View style={[styles.expenseContainer, style]}>
         <View style={styles.expenseDetails}>
           <Text style={styles.expense}>{getCategoryName()}</Text>
@@ -63,7 +76,7 @@ function test () {
             {translate("NextDueDate")}: {getFormatedDateYMD(itemData.item.dueDay)}
           </Text>
         </View>
-        <Text style={styles.expenseAmount}>
+        <Text style={[styles.expenseAmount, itemData.item.type === "expense" ? styles.expenseAmountBackground : styles.incomeAmountBackground]}>
           {itemData.item.type === "expense" ? "-" : "+"}
           {"\u20AC"}
           {parseFloat(itemData.item.amount).toFixed(2)}
@@ -76,56 +89,55 @@ function test () {
           />
         </Pressable>
       </View>
+      </LinearGradient>
     </Pressable>
   );
 }
 
-function returnPaddingVertical() {
-  if (height > 950) {
-    return 15;
-  } else if (height > 800) {
-    return 8;
-  } else {
-    return 5;
-  }
-}
+
 export default ReoccuringEntry;
 
 const styles = StyleSheet.create({
+  gradientContainer: {
+    borderRadius: 12,
+  },
   expenseContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.backGroundSecondary,
-    marginVertical: height > 800 ? 5 : 3,
-
-    paddingHorizontal: width > 400 ? 20 : 15,
-    paddingVertical: returnPaddingVertical(),
+    marginVertical: height * 0.005,
+    paddingHorizontal: height * 0.01,
+    paddingVertical: height * 0.01,
     borderRadius: 12,
+    width: "100%",
   },
 
   expense: {
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 18 : 14,
+    fontSize: height * 0.018,
     fontWeight: "bold",
   },
   date: {
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 12 : 10,
+    fontSize: height * 0.015,
   },
   expenseAmount: {
-    width: width > 400 ? 130 : 100,
+    width: height* 0.15,
     color: GlobalStyles.colors.textColor,
-    fontSize: height > 800 ? 18 : 15,
+    fontSize: height * 0.018,
     fontWeight: "bold",
-    backgroundColor: GlobalStyles.colors.accentColor,
+    paddingVertical: height * 0.01,
     borderRadius: 12,
-    paddingHorizontal: width > 400 ? 5 : 3,
-    paddingVertical: height > 800 ? 5 : 3,
     textAlign: "center",
   },
 
   onPress: {
     opacity: 0.75,
+  },
+  expenseAmountBackground: {
+    backgroundColor: GlobalStyles.colors.accentColor,
+  },
+  incomeAmountBackground: {
+    backgroundColor: "green",
   },
 });

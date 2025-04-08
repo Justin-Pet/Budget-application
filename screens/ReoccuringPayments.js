@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Dimensions } from "react-native";
 import { useContext, useState } from "react";
 import ExpenseEntriesContextProvider, {
   ExpenseEntriesContext,
@@ -6,6 +6,8 @@ import ExpenseEntriesContextProvider, {
 import ReoccuringEntry from "../components/ReoccuringEntries/ReoccuringEntry";
 import { GlobalStyles } from "../constants/GlobalStyles";
 
+
+const { width, height } = Dimensions.get("window");
 function renderReoccuringPaymentItem(itemData) {
   return <ReoccuringEntry itemData={itemData} />;
 }
@@ -28,8 +30,8 @@ export default ReoccuringPayments;
 const styles = StyleSheet.create({
 
   rootContainer:{
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: height * 0.025,
+    paddingVertical: height * 0.02,
     flex:1,
     backgroundColor: GlobalStyles.colors.backgroundMain
   }

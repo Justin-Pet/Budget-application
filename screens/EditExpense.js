@@ -25,7 +25,6 @@ function EditExpense({ route, navigation }) {
   const expenseCtx = useContext(ExpenseEntriesContext);
   const navigator = useNavigation();
 
-
   const id = route.params.id;
   // const itemData = route.params.itemData;
   const [amount, setAmount] = useState(route.params.amount);
@@ -47,25 +46,29 @@ function EditExpense({ route, navigation }) {
         if (type === "expense") {
           expenseCtx.subtractWallet(parseFloat(amount), currentWallet);
           expenseCtx.addWallet(parseFloat(originalAmount), currentWallet);
-    
         } else {
           expenseCtx.addWallet(parseFloat(amount), currentWallet);
           expenseCtx.subtractWallet(parseFloat(originalAmount), currentWallet);
-    
         }
       } else if (originalType !== type) {
         if (type === "expense") {
           expenseCtx.subtractWallet(parseFloat(amount), currentWallet);
           expenseCtx.subtractWallet(parseFloat(originalAmount), currentWallet);
-        
         } else {
           expenseCtx.addWallet(parseFloat(amount), currentWallet);
           expenseCtx.addWallet(parseFloat(originalAmount), currentWallet);
- 
         }
       }
 
-      expenseCtx.updateExpense(id, amount, category, date, comment, type, currentWallet);
+      expenseCtx.updateExpense(
+        id,
+        amount,
+        category,
+        date,
+        comment,
+        type,
+        currentWallet
+      );
       navigator.navigate("BottomTabs", { screen: "Summary" });
     }
   }
@@ -95,8 +98,7 @@ function EditExpense({ route, navigation }) {
   function getCurrentWallet() {
     if (currentWallet == "wallet" || currentWallet == 1) {
       return translate("Cash");
-    }
-    else {
+    } else {
       return translate("Bank");
     }
   }
@@ -157,43 +159,30 @@ const styles = StyleSheet.create({
   commentsAndDateContainer: {
     width: "100%",
     alignItems: "center",
+    justifyContent: "flex-end",
   },
-  dateContainer: {
-    width: width > 400 ? "50%" : "75%",
-    paddingHorizontal: width > 400 ? 20 : 10,
-    paddingVertical: height > 800 ? 10 : 5,
-    borderRadius: 5,
-    alignItems: "center",
 
-    borderBottomColor: GlobalStyles.colors.backGroundSecondary,
-    backgroundColor: GlobalStyles.colors.backGroundSecondary,
-  },
-  dateText: {
-    fontSize: height > 800 ? 15 : 12,
-    fontWeight: "bold",
-    color: GlobalStyles.colors.accentColor,
-  },
   headerText: {
     color: GlobalStyles.colors.headerColor,
     fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 30,
+    fontSize: height * 0.02,
+    marginRight: height * 0.02,
   },
+
   buttonContainer: {
     alignItems: "center",
-    marginBottom: height > 800 ? 30 : 20,
+    marginBottom: height * 0.03,
   },
   walletContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10
-  }
-  ,
+    marginTop: height * 0.01,
+  },
   walletText: {
     fontWeight: "bold",
-    fontSize: 15,
-    marginRight: 10,
-    color: GlobalStyles.colors.textColor
+    fontSize: height * 0.013,
+    marginRight: height * 0.015,
+    color: GlobalStyles.colors.textColor,
   },
 });

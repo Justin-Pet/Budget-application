@@ -1,9 +1,10 @@
 import { SelectList } from "react-native-dropdown-select-list";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../../constants/GlobalStyles";
 import { useEffect, useState } from "react";
 import { useLanguage } from "../../store/context/LanguageContext";
 
+const { width, height } = Dimensions.get("window");
 function WalletSelector({ currentWallet, setCurrentWallet }) {
 
   const { translate } = useLanguage();
@@ -39,11 +40,11 @@ function WalletSelector({ currentWallet, setCurrentWallet }) {
         boxStyles={{
           justifyContent: "center",
           alignContent: "center",
-          backgroundColor: GlobalStyles.colors.backGroundSecondary,
+          // backgroundColor: GlobalStyles.colors.backGroundSecondary,
           borderWidth: 0,
         }}
         inputStyles={{
-          fontSize: 15,
+          fontSize: height * 0.017,
           fontWeight: "bold",
         }}
         alignItems="center"
@@ -69,6 +70,7 @@ export default WalletSelector;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    width: "40%",
+    width: "50%",
+    marginTop: height * 0.02,
   },
 });

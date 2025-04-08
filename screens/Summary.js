@@ -14,10 +14,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { DUMMY_EXPENSES } from "../util/DummyExpenses";
 import { useLanguage } from "../store/context/LanguageContext";
 import WalletDashboard from "../components/WalletDashboard";
-import { LinearGradient } from "expo-linear-gradient";
 
-
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 function Main() {
   const { language, changeLanguage, translate } = useLanguage();
@@ -100,49 +98,34 @@ function Main() {
 
   return (
     <>
-   {/* <LinearGradient
-        // Button Linear Gradient
-        colors={[
-          "#b8e7e4", "#c8f6c8"
-        ]}
-        
-        style={{ flex: 1 }}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      > */}
-        <SafeAreaView style={styles.rootContainer}>
-          <View style={styles.dataContainer}>
-            <Pressable onPress={addDummyData}>
-              <AmountPart
-                amount={currentBalance}
-                text={translate("CurrentMonthBalance")}
-                containerStyle={{
-                  paddingHorizontal: 40,
-                  marginVertical: 15,
-                  // borderWidth: 3,
-                  // borderRadius: 10,
-                }}
-              />
-            </Pressable>
-
-            <WalletDashboard />
-
-            <Text style={styles.lastExpensesText}>{translate("lastFive")}</Text>
-            <FlatList
-              data={newestExpenses}
-              renderItem={(itemData) => (
-                <ExpenseEntry
-                  itemData={itemData}
-                  style={{ marginHorizontal: 0 }}
-                />
-              )}
-              keyExtractor={(item) => item.id}
+      <SafeAreaView style={styles.rootContainer}>
+        <View style={styles.dataContainer}>
+          <Pressable onPress={addDummyData}>
+            <AmountPart
+              amount={currentBalance}
+              text={translate("CurrentMonthBalance")}
+              containerStyle={{}}
             />
-          </View>
-        </SafeAreaView>
-        {/* </LinearGradient> */}
+          </Pressable>
+
+          <WalletDashboard />
+
+          <Text style={styles.lastExpensesText}>{translate("lastFive")}</Text>
+          <FlatList
+            data={newestExpenses}
+            renderItem={(itemData) => (
+              <ExpenseEntry
+                itemData={itemData}
+                style={{  }}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+      </SafeAreaView>
+
       <RoundButton pressHandler={addPressHandler}>
-        <Ionicons name="add" size={22} color={GlobalStyles.colors.iconColor} />
+        <Ionicons name="add" size={height * 0.03} color={GlobalStyles.colors.iconColor} />
       </RoundButton>
     </>
   );
@@ -151,29 +134,22 @@ function Main() {
 export default Main;
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 5,
-  },
   rootContainer: {
     flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: GlobalStyles.colors.backgroundMain,
-    paddingTop: height > 800 ? 10 : 0,
   },
   lastExpensesText: {
-    fontSize: height > 800 ? 25 : 20,
+    fontSize: height * 0.025,
     fontWeight: "bold",
     color: GlobalStyles.colors.headerColor,
     textAlign: "center",
-    marginVertical: height > 800 ? 3 : 0,
+    marginVertical: height * 0.01,
   },
   dataContainer: {
     width: "90%",
-    paddingTop: height > 800 ? 25 : 15,
+    paddingTop: height * 0.05,
   },
 });

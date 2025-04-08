@@ -45,16 +45,15 @@ export default DatePicker;
 const styles = StyleSheet.create({
   dateContainer: {
     width: "60%",
-    paddingHorizontal: width > 400 ? 20 : 10,
-    paddingVertical: height > 800 ? 10 : 5,
-    marginVertical: height > 800 ? 10 : 7,
+    paddingHorizontal: height * 0.02,
+    paddingVertical: height * 0.01,
     borderRadius: 5,
     alignItems: "center",
 
     backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
   },
   dateText: {
-    fontSize: height > 800 ? 15 : 12,
+    fontSize: height * 0.015,
     color: GlobalStyles.colors.textColor,
   },
 });

@@ -7,7 +7,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../constants/GlobalStyles";
 import { useLanguage } from "../store/context/LanguageContext";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 function WalletDashboard() {
   const { translate } = useLanguage();
@@ -15,7 +15,9 @@ function WalletDashboard() {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.walletHeader}>{translate("CurrentWalletBalance")}</Text>
+      <Text style={styles.walletHeader}>
+        {translate("CurrentWalletBalance")}
+      </Text>
       <View style={styles.walletContainer}>
         <Text style={styles.walletText}>{translate("wallet")}</Text>
         <Text style={styles.amount}>
@@ -38,31 +40,31 @@ export default WalletDashboard;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginVertical: height > 800 ? 20 : 10,
+    marginVertical: height * 0.018,
   },
   walletContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignContent: "center",
-    borderBottomWidth: 1,
+    borderBottomWidth: height * 0.001,
     borderStyle: "dotted",
     borderBottomColor: GlobalStyles.colors.accentColor,
-    marginVertical: height > 800 ? 5 : 3,
+    marginVertical: height * 0.01,
   },
   walletText: {
-    fontSize: width > 400 ? 20 : 15,
+    fontSize: height * 0.02,
     color: GlobalStyles.colors.headerColor,
     fontWeight: "bold",
   },
   amount: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 20 : 15,
+    fontSize: height * 0.023,
     color: GlobalStyles.colors.accentColor,
   },
   walletHeader: {
     color: GlobalStyles.colors.headerColor,
-    fontSize: width > 400 ? 25 : 20,
+    fontSize: height * 0.025,
     fontWeight: "bold",
-    marginVertical: height > 800 ? 10 : 5,
+    marginVertical: height * 0.01,
   },
 });

@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingTop: height > 800 ? 75 : 50,
+    paddingTop: height * 0.06,
     backgroundColor: GlobalStyles.colors.backgroundMain,
   },
   itemContainer: {
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 30 : 23,
+    fontSize: height * 0.03,
     textDecorationLine: "underline",
     color: GlobalStyles.colors.headerColor,
   },

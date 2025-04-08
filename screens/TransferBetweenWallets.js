@@ -69,7 +69,7 @@ function TransferBetweenWallets({ onPress }) {
             <Pressable onPress={handleWalletChange}>
               <Ionicons
                 name="swap-horizontal"
-                size={width * 0.07}
+                size={height * 0.035}
                 color="black"
               />
             </Pressable>
@@ -106,7 +106,7 @@ function TransferBetweenWallets({ onPress }) {
             <Pressable onPress={handleWalletChange}>
               <Ionicons
                 name="swap-horizontal"
-                size={width * 0.07}
+                size={height * 0.035}
                 color="black"
               />
             </Pressable>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: height * 0.15,
+    // paddingTop: height * 0.15,
     backgroundColor: GlobalStyles.colors.backgroundMain,
   },
 
@@ -180,43 +180,43 @@ const styles = StyleSheet.create({
 
   headerText: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 30 : 25,
-    paddingVertical: height > 800 ? 20 : 15,
+    fontSize: height * 0.035,
+    paddingVertical: height * 0.015,
     textAlign: "center",
     color: GlobalStyles.colors.headerColor,
     width: "80%",
   },
 
   walletElementContainer: {
-    marginVertical: height > 800 ? 20 : 15,
+    marginVertical: height * 0.02,
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    paddingHorizontal: width > 400 ? 40 : 20,
+    paddingHorizontal: height * 0.03,
   },
   buttonContainer: {
     width: "100%",
     alignItems: "center",
-    marginTop: height > 800 ? 20 : 15,
+    marginTop: height * 0.03,
   },
 
   buttonStyle:{
     width: "33%",
-    paddingVertical: height > 800 ? 10 : 5,
+    paddingVertical: height * 0.01,
   },
   buttonStyleText:{
-    fontSize: width > 400 ? 20 : 12,
+    fontSize: height * 0.025,
     color: GlobalStyles.colors.headerColor,
   },
 
   transferText: {
-    fontSize: width > 400 ? 25 : 15,
+    fontSize: height * 0.025,
     fontWeight: "bold",
-    marginVertical: height > 800 ? 5 : 3,
+    marginVertical: height * 0.01,
     color: GlobalStyles.colors.textColor,
   },
   walletText: {
-    fontSize: width > 400 ? 20 : 12,
+    fontSize: height * 0.02,
     color: GlobalStyles.colors.textColor,
   },
   textContainer: {
@@ -225,12 +225,12 @@ const styles = StyleSheet.create({
   transferIconContainer: {
     flex: 1,
     alignItems: "flex-end",
-    padding: 10,
+    padding: height * 0.01,
     justifyContent: "center",
   },
   amount: {
     fontWeight: "bold",
-    fontSize: width > 400 ? 20 : 12,
+    fontSize: height * 0.025,
     color: GlobalStyles.colors.accent500,
 
   },
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "40%",
-    marginVertical: height > 800 ? 20 : 15,
+    marginVertical: height * 0.02,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
@@ -250,7 +250,10 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
   },
   amountContainer:{
-    fontSize: width > 400 ? 20 : 15,
+    width: "100%",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: height * 0.025,
     color: GlobalStyles.colors.textColor,
   },
 

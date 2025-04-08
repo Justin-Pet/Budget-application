@@ -194,16 +194,6 @@ function BarChartElement({ currentDate }) {
     }
   }
 
-  function getSpacing() {
-    if (height > 950) {
-      return 12;
-    } else if (height > 800) {
-      return 10;
-    } else {
-      return 11;
-    }
-  }
-
   return (
     <View style={styles.rootContainer}>
       <View>
@@ -211,38 +201,42 @@ function BarChartElement({ currentDate }) {
           {translate("ExpenseIncomeTrend")}
         </Text>
       </View>
-      <View style={styles.barChartContainer}>
-        <BarChart
-          data={getLastSixMonths()}
-          xAxisLabelTextStyle={{
-            color: GlobalStyles.colors.textColor,
-            textAlign: "center",
-            fontSize: height > 800 ? 15 : 10,
-          }}
-          barWidth={height > 800 ? 15 : 10}
-          spacing={getSpacing()}
-          roundedTop
-          roundedBottom
-          noOfSections={4}
-          maxValue={returnBarUpperScale()}
-          labelWidth={width > 400 ? 50 : 40}
-          width={width * 0.9}
-          height={height * 0.18}
-          xAxisTextNumberOfLines={2}
-          isAnimated
-          xAxisLength={width * 0.8}
-          endSpacing={0}
-          yAxisLabelWidth={50}
-        />
-      </View>
-      <View style={styles.barChartLegend}>
-        <View
-          style={[{ backgroundColor: "green" }, styles.legendItemContainer]}
-        >
-          <Text style={styles.legentText}>{translate("income")}</Text>
+      <View>
+        <View style={styles.barChartContainer}>
+          <BarChart
+            data={getLastSixMonths()}
+            xAxisLabelTextStyle={{
+              color: GlobalStyles.colors.textColor,
+              textAlign: "center",
+              fontSize: height * 0.015,
+            }}
+            barWidth={height * 0.02}
+            spacing={height * 0.01}
+            roundedTop
+            roundedBottom
+            noOfSections={4}
+            maxValue={returnBarUpperScale()}
+            labelWidth={height * 0.05}
+            width={width * 0.9}
+            height={height * 0.18}
+            xAxisTextNumberOfLines={2}
+            isAnimated
+            xAxisLength={width * 0.8}
+            endSpacing={0}
+            yAxisLabelWidth={height * 0.07}
+          />
         </View>
-        <View style={[{ backgroundColor: "red" }, styles.legendItemContainer]}>
-          <Text style={styles.legentText}>{translate("expense")}</Text>
+        <View style={styles.barChartLegend}>
+          <View
+            style={[{ backgroundColor: "green" }, styles.legendItemContainer]}
+          >
+            <Text style={styles.legentText}>{translate("income")}</Text>
+          </View>
+          <View
+            style={[{ backgroundColor: "red" }, styles.legendItemContainer]}
+          >
+            <Text style={styles.legentText}>{translate("expense")}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -253,9 +247,13 @@ export default BarChartElement;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    justifyContent: "center",
+    // justifyContent: "flex-start",
     alignItems: "center",
     marginVertical: height > 800 ? 20 : 10,
+
+    marginTop: height * 0.1,
+
+    marginRight: height * 0.03,
   },
   barChartTitle: {
     fontWeight: "bold",

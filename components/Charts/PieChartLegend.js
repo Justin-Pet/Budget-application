@@ -15,7 +15,7 @@ function PieChartLegend() {
             { backgroundColor: PieChartColors.colors.groceries },
           ]}
         >
-      {translate("Groceries")}
+          {translate("Groceries")}
         </Text>
         <Text
           style={[
@@ -23,7 +23,7 @@ function PieChartLegend() {
             { backgroundColor: PieChartColors.colors.bills },
           ]}
         >
-         {translate("Bills")}
+          {translate("Bills")}
         </Text>
         <Text
           style={[
@@ -31,7 +31,24 @@ function PieChartLegend() {
             { backgroundColor: PieChartColors.colors.car },
           ]}
         >
-        {translate("Car")}
+          {translate("Car")}
+        </Text>
+
+        <Text
+          style={[
+            styles.legendText,
+            { backgroundColor: PieChartColors.colors.education },
+          ]}
+        >
+          {translate("Education")}
+        </Text>
+        <Text
+          style={[
+            styles.legendText,
+            { backgroundColor: PieChartColors.colors.home },
+          ]}
+        >
+          {translate("Home")}
         </Text>
       </View>
       <View style={styles.legendContainer}>
@@ -41,7 +58,7 @@ function PieChartLegend() {
             { backgroundColor: PieChartColors.colors.entertainment },
           ]}
         >
-        {translate("Entertainment")}
+          {translate("Entertainment")}
         </Text>
         <Text
           style={[
@@ -57,25 +74,7 @@ function PieChartLegend() {
             { backgroundColor: PieChartColors.colors.health },
           ]}
         >
-       {translate("Health")}
-        </Text>
-      </View>
-      <View style={styles.legendContainer}>
-        <Text
-          style={[
-            styles.legendText,
-            { backgroundColor: PieChartColors.colors.education },
-          ]}
-        >
-        {translate("Education")}
-        </Text>
-        <Text
-          style={[
-            styles.legendText,
-            { backgroundColor: PieChartColors.colors.home },
-          ]}
-        >
-    {translate("Home")}
+          {translate("Health")}
         </Text>
         <Text
           style={[
@@ -94,14 +93,14 @@ export default PieChartLegend;
 
 const styles = StyleSheet.create({
   legendText: {
-    width: "25%",
+    width: "15%",
     // backgroundColor: GlobalStyles.colors.primary200,
-    marginHorizontal: height > 800 ? 5 : 3,
-    marginVertical: height > 800 ? 3 : 2,
+    marginHorizontal: height * 0.005,
+    marginVertical: height * 0.005,
     textAlign: "center",
     borderRadius: 5,
     fontWeight: "bold",
-    fontSize: height > 800 ? 13 : 8,
+    fontSize: height * 0.009,
     color: GlobalStyles.colors.text,
   },
   legend: {
