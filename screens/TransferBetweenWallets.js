@@ -26,7 +26,7 @@ function TransferBetweenWallets({ onPress }) {
   const [amount, setAmount] = useState("");
   const [primaryWallet, setPrimaryWallet] = useState("wallet");
 
-  const allowedChars = /^[0-9+\.]*$/;
+  const allowedChars = /^[+]?[0-9]*(\.[0-9]*)?$/;
   function handleInput(input) {
     if (allowedChars.test(input)) {
       setAmount(input);

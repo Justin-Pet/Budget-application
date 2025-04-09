@@ -6,7 +6,7 @@ import { GlobalStyles } from "../../constants/GlobalStyles";
 
 const { width, height } = Dimensions.get("window");
 function AddEditAmount({ amount, setAmount, amountFocus = false }) {
-  const allowedChars = /^[0-9+\.]*$/;
+  const allowedChars = /^[+]?[0-9]*(\.[0-9]*)?$/;
   const { language, translate } = useLanguage();
 
   function handleInput(input) {
