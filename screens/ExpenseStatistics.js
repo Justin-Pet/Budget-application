@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "100%",
     // flex: 1,
-    backgroundColor: "red",
+
 
   },
   barChart: {

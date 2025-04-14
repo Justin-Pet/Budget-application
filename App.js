@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { GlobalStyles } from "./constants/GlobalStyles.js";
@@ -22,10 +23,22 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ExpenseEntriesProvider from "./store/context/ExpenseEntriesContext.js";
 import { LanguageProvider } from "./store/context/LanguageContext.js";
+import * as SplashScreen from 'expo-splash-screen';
 
 import MainStackNavigator from "./components/MainStackNavigator.js";
 
+
+
 export default function App() {
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hideAsync();
+    }, 1000); // 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <StatusBar style="dark" />
