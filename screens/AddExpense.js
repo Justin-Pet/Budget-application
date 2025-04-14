@@ -53,7 +53,7 @@ function AddExpense({route, navigation}) {
   }, [navigation]);
 
 
-  function addExpenseToStore() {
+  export function addExpenseToStore() {
     if (reoccuringPayment) {
       if (category === "" || amount === "") {
         return alert("Please enter a category and amount");

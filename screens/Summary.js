@@ -28,7 +28,7 @@ function Main() {
   useEffect(() => {
     expensesCtx.processPendingExpenses();
     setCurrentBalance(calculateCurrentMonthBalance());
-    setCurrentMonthlyAverage(calculateAverageMonthlyExpense());
+    // setCurrentMonthlyAverage(calculateAverageMonthlyExpense());
   });
 
   function addDummyData() {
