@@ -89,8 +89,6 @@ function ExpenseStatistics() {
     setCurrentDate(new Date());
   }
 
-
-
   function handleChartChange() {
     if (chartShown === "bar") {
       setChartShown("pie");
@@ -211,19 +209,20 @@ function ExpenseStatistics() {
             <SimpleIconButton onPress={handleBarBackPress}>
               <Ionicons
                 name="arrow-back"
-                size={22}
+                size={height * 0.035}
                 color={GlobalStyles.colors.accentColor}
               />
             </SimpleIconButton>
             <SimpleButton
               buttonText={translate("CurrentDate")}
               onPress={handleBarCurrentDatePress}
+              style={{ fontSize: height * 0.02 }}
             />
             {/* <SimpleButton buttonText="Next" onPress={handleBarNextPress} /> */}
             <SimpleIconButton onPress={handleBarNextPress}>
               <Ionicons
                 name="arrow-forward"
-                size={22}
+                size={height * 0.035}
                 color={GlobalStyles.colors.accentColor}
               />
             </SimpleIconButton>
@@ -234,11 +233,8 @@ function ExpenseStatistics() {
       return (
         <View style={styles.pieContainer}>
           <View style={styles.pieChartContainer}>
-            <PieChartElement/>
-
+            <PieChartElement />
           </View>
-
-
         </View>
       );
     }
@@ -253,14 +249,18 @@ function ExpenseStatistics() {
         <View style={styles.statsContainer}>
           <View style={styles.innerContainer}>
             <View style={styles.statsRows}>
-              <Text style={styles.statsText}>{translate("TotalExpenseAmount")}</Text>
+              <Text style={styles.statsText}>
+                {translate("TotalExpenseAmount")}
+              </Text>
               <Text style={[styles.statsAmount, styles.expense]}>
                 {"\u20AC"}
                 {totalExpenseAmount}
               </Text>
             </View>
             <View style={styles.statsRows}>
-              <Text style={styles.statsText}>{translate("TotalIncomeAmount")}</Text>
+              <Text style={styles.statsText}>
+                {translate("TotalIncomeAmount")}
+              </Text>
               <Text style={[styles.statsAmount, styles.income]}>
                 {"\u20AC"}
                 {totalIncomeAmount}
@@ -284,21 +284,27 @@ function ExpenseStatistics() {
 
           <View style={styles.innerContainer}>
             <View style={styles.statsRows}>
-              <Text style={styles.statsText}>{translate("ExpenseAmountPerMonth")}</Text>
+              <Text style={styles.statsText}>
+                {translate("ExpenseAmountPerMonth")}
+              </Text>
               <Text style={[styles.statsAmount, styles.expense]}>
                 {"\u20AC"}
                 {averageExpenseAmount}
               </Text>
             </View>
             <View style={styles.statsRows}>
-              <Text style={styles.statsText}>{translate("IncomeAmountPerMonth")}</Text>
+              <Text style={styles.statsText}>
+                {translate("IncomeAmountPerMonth")}
+              </Text>
               <Text style={[styles.statsAmount, styles.income]}>
                 {"\u20AC"}
                 {averageIncomeAmount}
               </Text>
             </View>
             <View style={styles.statsRows}>
-              <Text style={styles.statsText}>{translate("AverageMonthlyBalance")}</Text>
+              <Text style={styles.statsText}>
+                {translate("AverageMonthlyBalance")}
+              </Text>
               <Text
                 style={[
                   styles.statsAmount,
@@ -317,7 +323,9 @@ function ExpenseStatistics() {
         <View style={styles.chartsContainer}>{renderDiagram()}</View>
 
         <Pressable
-          style={[[styles.switchButton,({ pressed }) => pressed && styles.onPress]]}
+          style={[
+            [styles.switchButton, ({ pressed }) => pressed && styles.onPress],
+          ]}
           onPress={handleChartChange}
         >
           <View style={styles.buttonContainer}>
@@ -344,19 +352,17 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.02,
   },
 
-  switchButton:{
+  switchButton: {
     position: "absolute",
- bottom: height * 0.05,
+    bottom: height * 0.05,
     right: height * 0.03,
   },
   barContainer: {
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-    height: "100%",
-    // flex: 1,
 
-
+    flex: 1,
   },
   barChart: {
     width: "100%",

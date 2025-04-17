@@ -1,8 +1,7 @@
-import { View, Text, Pressable, StyleSheet,Dimensions } from "react-native";
+import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../../constants/GlobalStyles";
 
-
-const {width, height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 function SimpleIconButton({ children, onPress }) {
   return (
     <Pressable

@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+          "backgroundColor": "#ffffff"
       },
       "package": "com.legic.budgetApp"
     },

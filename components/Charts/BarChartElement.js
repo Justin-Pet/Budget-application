@@ -247,18 +247,17 @@ export default BarChartElement;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    // justifyContent: "flex-start",
+
+
+    justifyContent: "flex-start",
     alignItems: "center",
-    marginVertical: height > 800 ? 20 : 10,
 
-    marginTop: height * 0.1,
-
-    marginRight: height * 0.03,
+    // marginRight: height * 0.03,
   },
   barChartTitle: {
+    marginBottom: height * 0.1,
     fontWeight: "bold",
-    fontSize: width > 400 ? 20 : 17,
-    marginBottom: height > 800 ? 15 : 10,
+    fontSize: height * 0.02,
     textAlign: "center",
     color: GlobalStyles.colors.headerColor,
   },

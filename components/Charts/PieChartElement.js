@@ -402,7 +402,7 @@ function PieChartElement({ pieChartAllShown }) {
         </View>
         {renderContent()}
       </View>
-
+      <PieChartLegend />
       <View style={styles.bottomContainer}>
         <View style={styles.buttonContainer}>
           <SimpleIconButton onPress={handlePreviousMonth}>
@@ -423,7 +423,7 @@ function PieChartElement({ pieChartAllShown }) {
             />
           </SimpleIconButton>
         </View>
-        <PieChartLegend />
+
       </View>
     </View>
   );
@@ -432,6 +432,14 @@ function PieChartElement({ pieChartAllShown }) {
 export default PieChartElement;
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    alignItems: "center",
+    height: "100%",
+    justifyContent: "space-between",
+
+    marginBottom: height * 0.01,
+
+  },
   centerLabelText: {
     textAlign: "center",
     fontWeight: "bold",
@@ -445,18 +453,12 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.headerColor,
   },
 
-  rootContainer: {
-    alignItems: "center",
-    height: "100%",
-    justifyContent: "space-between",
-
-    marginBottom: height * 0.01,
-  },
+ 
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: height * 0.01,
+    // marginVertical: height * 0.01,
   },
   bottomContainer: {
     justifyContent: "center",
@@ -482,6 +484,5 @@ const styles = StyleSheet.create({
   pieChartContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "red ",
   },
 });

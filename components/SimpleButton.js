@@ -1,15 +1,26 @@
-import { View, Text, Pressable, StyleSheet,Dimensions } from "react-native";
+import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../constants/GlobalStyles";
 
-const {width, height} = Dimensions.get("window");
-function SimpleButton({children, onPress, buttonText, style, buttonStyleText }) {
-  
+const { width, height } = Dimensions.get("window");
+function SimpleButton({
+  children,
+  onPress,
+  buttonText,
+  style,
+  buttonStyleText,
+}) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.barButtonView, style, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.barButtonView,
+        style,
+        pressed && styles.pressed,
+      ]}
       onPress={onPress}
     >
-      <Text style={[styles.barButtonText, buttonStyleText]}>{buttonText}</Text>
+      <Text style={[styles.barButtonText, buttonStyleText, style]}>
+        {buttonText}
+      </Text>
     </Pressable>
   );
 }
