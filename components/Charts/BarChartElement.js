@@ -210,7 +210,7 @@ function BarChartElement({ currentDate }) {
               textAlign: "center",
               fontSize: height * 0.015,
             }}
-            barWidth={height * 0.02}
+            barWidth={height * 0.017}
             spacing={height * 0.01}
             roundedTop
             roundedBottom

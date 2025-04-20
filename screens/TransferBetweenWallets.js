@@ -45,7 +45,9 @@ function TransferBetweenWallets({ onPress }) {
         <View style={styles.walletElementContainer}>
           <View style={styles.textContainer}>
             <View>
-              <Text style={styles.transferText}>{translate("TransferFrom")}: </Text>
+              <Text style={styles.transferText}>
+                {translate("TransferFrom")}:{" "}
+              </Text>
               <View style={styles.walletAmountContainer}>
                 <Text style={styles.walletText}>{translate("wallet")}:</Text>
                 <Text style={styles.amount}>
@@ -55,9 +57,13 @@ function TransferBetweenWallets({ onPress }) {
               </View>
             </View>
             <View>
-              <Text style={styles.transferText}>{translate("TransferTo")}:</Text>
+              <Text style={styles.transferText}>
+                {translate("TransferTo")}:
+              </Text>
               <View style={styles.walletAmountContainer}>
-                <Text style={styles.walletText}>{translate("bankWallet")}:</Text>
+                <Text style={styles.walletText}>
+                  {translate("bankWallet")}:
+                </Text>
                 <Text style={styles.amount}>
                   {"\u20AC"}
                   {expensesCtx.bankWallet.toFixed(2)}
@@ -81,9 +87,13 @@ function TransferBetweenWallets({ onPress }) {
         <View style={styles.walletElementContainer}>
           <View style={styles.textContainer}>
             <View>
-              <Text style={styles.transferText}>{translate("TransferFrom")}: </Text>
+              <Text style={styles.transferText}>
+                {translate("TransferFrom")}:{" "}
+              </Text>
               <View style={styles.walletAmountContainer}>
-                <Text style={styles.walletText}>{translate("bankWallet")}:</Text>
+                <Text style={styles.walletText}>
+                  {translate("bankWallet")}:
+                </Text>
                 <Text style={styles.amount}>
                   {"\u20AC"}
                   {expensesCtx.bankWallet.toFixed(2)}
@@ -91,7 +101,9 @@ function TransferBetweenWallets({ onPress }) {
               </View>
             </View>
             <View>
-              <Text style={styles.transferText}>{translate("TransferTo")}: </Text>
+              <Text style={styles.transferText}>
+                {translate("TransferTo")}:{" "}
+              </Text>
               <View style={styles.walletAmountContainer}>
                 <Text style={styles.walletText}>{translate("wallet")}:</Text>
                 <Text style={styles.amount}>
@@ -133,26 +145,32 @@ function TransferBetweenWallets({ onPress }) {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.headerText}>{translate("TransferBetweenWallets")}</Text>
+      <Text style={styles.headerText}>
+        {translate("TransferBetweenWallets")}
+      </Text>
 
-        <View style={styles.swapContainer}>
-          <View >{renderWalletSwap()}</View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.amountContainer}
-              // placeholder="Amount"
-              maxLength={7}
-              keyboardType="numeric"
-              value={amount.toString()}
-              onChangeText={handleInput}
-              autoFocus={true}
-            />
-          </View>
-      
+      <View style={styles.swapContainer}>
+        <View>{renderWalletSwap()}</View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.amountContainer}
+            // placeholder="Amount"
+            maxLength={7}
+            keyboardType="numeric"
+            value={amount.toString()}
+            onChangeText={handleInput}
+            autoFocus={true}
+          />
         </View>
-        <View style={styles.buttonContainer}>
-            <SimpleButton style={styles.buttonStyle} buttonStyleText={styles.buttonStyleText} onPress={handleTransfer} buttonText={translate("Transfer")} />
-          </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <SimpleButton
+          style={styles.buttonStyle}
+          buttonStyleText={styles.buttonStyleText}
+          onPress={handleTransfer}
+          buttonText={translate("Transfer")}
+        />
+      </View>
     </View>
   );
 }
@@ -169,14 +187,12 @@ const styles = StyleSheet.create({
   },
 
   swapContainer: {
-   width: "90%",
+    width: "90%",
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: GlobalStyles.colors.backGroundSecondary,
     borderRadius: 12,
-    
   },
-
 
   headerText: {
     fontWeight: "bold",
@@ -195,17 +211,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: height * 0.03,
   },
   buttonContainer: {
-    width: "100%",
+    width: "33%",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: height * 0.03,
   },
 
-  buttonStyle:{
-    width: "33%",
+  buttonStyle: {
+    width: "100%",
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
     paddingVertical: height * 0.01,
+    borderRadius: 12,
   },
-  buttonStyleText:{
-    fontSize: height * 0.025,
+  buttonStyleText: {
+    fontSize: height * 0.02,
+
     color: GlobalStyles.colors.headerColor,
   },
 
@@ -232,7 +254,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: height * 0.025,
     color: GlobalStyles.colors.accent500,
-
   },
   walletAmountContainer: {
     flexDirection: "row",
@@ -249,12 +270,11 @@ const styles = StyleSheet.create({
 
     backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
   },
-  amountContainer:{
+  amountContainer: {
     width: "100%",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: height * 0.025,
     color: GlobalStyles.colors.textColor,
   },
-
 });

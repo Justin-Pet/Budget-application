@@ -354,8 +354,8 @@ const styles = StyleSheet.create({
 
   switchButton: {
     position: "absolute",
-    bottom: height * 0.05,
-    right: height * 0.03,
+    bottom: height * 0.02,
+    right: height * 0.02,
   },
   barContainer: {
     width: "100%",
@@ -436,7 +436,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     // backgroundColor: GlobalStyles.colors.button,
-    marginTop: height * 0.02,
+    marginTop: height * 0.015,
     paddingVertical: height * 0.01,
     paddingHorizontal: height * 0.02,
 

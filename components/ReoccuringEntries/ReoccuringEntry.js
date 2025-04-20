@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: height * 0.015,
   },
   expenseAmount: {
-    width: height* 0.15,
+    width: height* 0.12,
     color: GlobalStyles.colors.textColor,
     fontSize: height * 0.018,
     fontWeight: "bold",
