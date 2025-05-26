@@ -105,6 +105,7 @@ const LANGUAGES = {
     IncomeAmountPerMonth: "Income amount per month",
     AverageMonthlyBalance: "Average monthly balance",
     NoDataAvailable: "No data available",
+    DataEntryError: "Please enter a category and amount",
 
   },
   lt: {
@@ -171,7 +172,7 @@ const LANGUAGES = {
     Oct: "Spa",
     Nov: "Lap",
     Dec: "Gru",
-    CurrentMonthBalance: "Šis menesio balansas",
+    CurrentMonthBalance: "Šio menesio balansas",
     MonthlyAverage: "Menesinis vidurkis",
     wallet: "Piniginė",
     Wallets: "Piniginės",
@@ -210,6 +211,7 @@ const LANGUAGES = {
     IncomeAmountPerMonth: "Vidutinės įplaukos per mėnesį",
     AverageMonthlyBalance: "Vidutinis mėnesinis balansas",
     NoDataAvailable: "Nėra duomenų",
+    DataEntryError: "Įveskite kategoriją ir sumą",
 
   },
 };

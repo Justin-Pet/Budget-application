@@ -69,7 +69,7 @@ function AddExpense({route, navigation}) {
       }
     } else {
       if (category === "" || amount === "") {
-        return alert("Please enter a category and amount");
+        return alert(translate("DataEntryError"));
       } else {
         if (type === "expense") {
           expenseCtx.subtractWallet(parseFloat(amount), currentWallet);

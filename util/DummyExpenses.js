@@ -18,10 +18,10 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e3",
-    description: "Utilities",
+    description: "Bills",
     amount: 210.75,
     date: new Date(2025, 1, 1),
-    comment: "February Utilities",
+    comment: "February Bills",
     type: "expense",
   },
   {
@@ -50,7 +50,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e7",
-    description: "Dining Out",
+    description: "Groceries",
     amount: 65.0,
     date: new Date(2024, 11, 20),
     comment: "Dinner with Friends",
@@ -122,7 +122,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e16",
-    description: "Other Income",
+    description: "Other_income",
     amount: 500.0,
     date: new Date(2025, 2, 22),
     comment: "Freelance Work",
@@ -146,10 +146,10 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e19",
-    description: "Utilities",
+    description: "Bills",
     amount: 110.2,
     date: new Date(2024, 2, 3),
-    comment: "March Utilities",
+    comment: "March Bills",
     type: "expense",
   },
   {
@@ -170,7 +170,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e22",
-    description: "Dining Out",
+    description: "Groceries",
     amount: 75.5,
     date: new Date(2024, 10, 22),
     comment: "November Dinner",
@@ -1098,7 +1098,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e163",
-    description: "Utilities",
+    description: "Bills",
     amount: 95.5,
     date: new Date(2025, 3, 5),
     comment: "Electricity bill",
@@ -1106,7 +1106,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e164",
-    description: "Dining Out",
+    description: "Groceries",
     amount: 60.0,
     date: new Date(2025, 3, 12),
     comment: "Dinner with friends",
@@ -1180,7 +1180,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e173",
-    description: "Utilities",
+    description: "Bills",
     amount: 102.0,
     date: new Date(2025, 4, 7),
     comment: "Water bill",
@@ -1188,7 +1188,7 @@ export const DUMMY_EXPENSES = [
   },
   {
     id: "e174",
-    description: "Dining Out",
+    description: "Groceries",
     amount: 58.0,
     date: new Date(2025, 4, 10),
     comment: "Lunch with colleagues",
