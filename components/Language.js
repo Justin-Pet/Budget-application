@@ -2,19 +2,24 @@ import { Text, View, StyleSheet, Dimensions, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../constants/GlobalStyles";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar } from "expo-status-bar";
 import { useLanguage } from "../store/context/LanguageContext";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 function Language() {
   const { language, changeLanguage, translate } = useLanguage();
   const [currentLanguage, setCurrentLanguage] = useState("lt");
 
+  /**
+   * Set current language on component mount
+   */
   useEffect(() => {
     setCurrentLanguage(language);
   }, [language]);
 
+  /**
+   * Change the language of the app and update the state of the component
+   * @param {string} language - "lt" for Lithuanian, "en" for English
+   */
   function handleChangeLanguage(language) {
     changeLanguage(language);
     setCurrentLanguage(language);
@@ -61,8 +66,6 @@ export default Language;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    // width: "80%",
-    // flex: 1,
     justifyContent: "flex-start",
   },
 

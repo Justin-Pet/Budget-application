@@ -1,8 +1,17 @@
-import { View, Text, TextInput, StyleSheet, Dimensions } from "react-native";
+import { View, TextInput, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../../constants/GlobalStyles";
 import { useLanguage } from "../../store/context/LanguageContext";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+/**
+ * A component that renders a text input for user comments.
+ *
+ * @param {{comment: string, setComment: function}} props - The props for the component.
+ * @param {string} props.comment - The current comment text.
+ * @param {function} props.setComment - The function to call when the comment text changes.
+ *
+ * @returns {React.ReactNode} - The rendered component.
+ */
 function AddEditComments({ comment, setComment }) {
   const { translate } = useLanguage();
   return (

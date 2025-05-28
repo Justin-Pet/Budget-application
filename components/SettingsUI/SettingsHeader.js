@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../../constants/GlobalStyles";
-const { width, height } = Dimensions.get("window");
+const {  height } = Dimensions.get("window");
+/**
+ * Renders a header for the settings screen.
+ * @param {{headerText: string}} props
+ * @prop {string} headerText - The text to display in the header.
+ */
 function SettingsHeader({ headerText }) {
   return <Text style={styles.headerText}>{headerText}</Text>;
 }

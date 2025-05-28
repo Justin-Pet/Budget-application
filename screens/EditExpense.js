@@ -14,12 +14,22 @@ import {
 import { useState, useContext, useEffect } from "react";
 import { GlobalStyles } from "../constants/GlobalStyles";
 import { ExpenseEntriesContext } from "../store/context/ExpenseEntriesContext";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { useLanguage } from "../store/context/LanguageContext";
 import DatePicker from "../components/AddEditScreens/DatePicker";
-import WalletSelector from "../components/AddEditScreens/WalletSelector";
 
 const { width, height } = Dimensions.get("window");
+/**
+ * Component responsible for editing an expense. It allows users to input
+ * details such as category, amount, comment, date, type, and whether the
+ * expense is reoccurring. It interacts with the `ExpenseEntriesContext` to
+ * store the expense data and update the current wallet balance accordingly.
+ * The component also utilizes a `WalletSelector` to select the current wallet
+ * and a `ReoccuringPaymentSelector` for reoccurring expenses. Once the expense
+ * is added, it navigates to the Summary screen in the BottomTabs.
+ *
+ * @param {object} route - The route object containing navigation parameters.
+ * @param {object} navigation - The navigation object for screen transitions.
+ */
 function EditExpense({ route, navigation }) {
   const { translate } = useLanguage();
   const expenseCtx = useContext(ExpenseEntriesContext);
@@ -38,6 +48,14 @@ function EditExpense({ route, navigation }) {
   const originalAmount = route.params.amount;
   const originalType = route.params.type;
 
+  /**
+   * Updates an expense in the list of expenses based on the given ID.
+   * If the validation passes, it will update the expense's data and update
+   * the current wallet balance accordingly. If the expense type changes,
+   * it will do the type change accordingly. If the expense is reoccurring,
+   * it will call `updateReoccuringExpense` on the context.
+   * Finally, it navigates to the Summary screen in the BottomTabs.
+   */
   function updateExpense() {
     if (amount === "" || category === "") {
       return alert("Please enter a category and amount");
@@ -73,6 +91,19 @@ function EditExpense({ route, navigation }) {
     }
   }
 
+  /**
+   * Deletes an expense from the store. If the type is "expense", it adds the amount
+   * back to the current wallet. If the type is "income", it subtracts the amount
+   * from the current wallet. It then calls `deleteExpense` on the context and
+   * navigates to the Summary screen in the BottomTabs.
+   */
+
+  /**
+   * Deletes an expense from the store. If the type is "expense", it adds the amount
+   * back to the current wallet. If the type is "income", it subtracts the amount
+   * from the current wallet. It then calls `deleteExpense` on the context and
+   * navigates to the Summary screen in the BottomTabs.
+   */
   function deleteExpense() {
     if (type === "expense") {
       expenseCtx.addWallet(parseFloat(amount), currentWallet);
@@ -83,8 +114,19 @@ function EditExpense({ route, navigation }) {
     navigator.navigate("BottomTabs", { screen: "Summary" });
   }
 
+  /**
+   * Updates the header of the screen with a "Save" button that calls the
+   * `updateExpense` function when pressed.
+   */
   useEffect(() => {
     navigation.setOptions({
+      /**
+       * Returns a Pressable component that serves as a "Save" button in the header.
+       * When pressed, it triggers the `updateExpense` function. The button text is
+       * displayed using the translated string for "save". The button's appearance
+       * changes when pressed, applying the `onPress` style.
+       */
+
       headerRight: () => (
         <Pressable
           onPress={updateExpense}
@@ -95,6 +137,13 @@ function EditExpense({ route, navigation }) {
       ),
     });
   }, [navigation, updateExpense]);
+  /**
+   * Returns the translated string of the current wallet. If the current wallet is
+   * "wallet" or 1, it returns the translated string for "Cash". Otherwise, it
+   * returns the translated string for "Bank".
+   *
+   * @returns {string} The translated string of the current wallet.
+   */
   function getCurrentWallet() {
     if (currentWallet == "wallet" || currentWallet == 1) {
       return translate("Cash");
@@ -152,7 +201,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   amountAndCategoryContainer: {
-    // alignItems: "center",
     width: "100%",
   },
 

@@ -1,7 +1,15 @@
 import { Text, View, StyleSheet, Pressable, Dimensions } from "react-native";
 import { GlobalStyles } from "../constants/GlobalStyles";
 
-const { width, height } = Dimensions.get("window");
+const {  height } = Dimensions.get("window");
+/**
+ * Component that displays an amount and some text in a stylized way.
+ *
+ * @param {number} amount - the amount to display
+ * @param {string} text - the text to display
+ * @param {object} containerStyle - styles for the container
+ * @returns {JSX.Element}
+ */
 function AmountPart({ amount, text, containerStyle }) {
   return (
     <View style={[styles.rootContainer, containerStyle]}>

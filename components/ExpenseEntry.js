@@ -5,10 +5,26 @@ import { useNavigation } from "@react-navigation/native";
 import { useLanguage } from "../store/context/LanguageContext";
 import { LinearGradient } from "expo-linear-gradient";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+/**
+ * A component representing a single expense entry in the expense list.
+ * It displays the category of the expense, the date of the expense,
+ * and the amount of the expense. When pressed, it navigates to the
+ * EditExpense screen with the expense data.
+ *
+ * @param {Object} itemData - An object containing the expense data.
+ * @param {Object} style - A style object that can be used to customize the component.
+ * @returns {Component} A Pressable component with a LinearGradient as its child.
+ */
 function ExpenseEntry({ itemData, style }) {
-  const { language, translate } = useLanguage();
+  const { translate } = useLanguage();
   const navigator = useNavigation();
+
+  /**
+   * Handles the press event on the expense entry.
+   * Navigates to the EditExpense screen with the current expense data
+   * including amount, description, comment, id, date, type, and wallet.
+   */
 
   function onPressHandler() {
     navigator.navigate("EditExpense", {
@@ -21,6 +37,17 @@ function ExpenseEntry({ itemData, style }) {
       wallet: itemData.item.wallet,
     });
   }
+
+  /**
+   * Translates and returns the category name based on the expense description.
+   * The function uses a switch statement to match the description of the item
+   * with predefined categories such as Groceries, Bills, Car, etc., and returns
+   * the translated category name. If the description does not match any of the
+   * predefined categories, it returns the original description.
+   *
+   * @returns {string} The translated category name or the original description
+   * if no predefined category matches.
+   */
 
   function getCategoryName() {
     switch (itemData.item.description) {
@@ -95,7 +122,6 @@ function ExpenseEntry({ itemData, style }) {
   );
 }
 
-
 export default ExpenseEntry;
 
 const styles = StyleSheet.create({
@@ -122,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: height * 0.015,
   },
   expenseAmount: {
-    width: height* 0.15,
+    width: height * 0.15,
     color: GlobalStyles.colors.textColor,
     fontSize: height * 0.018,
     fontWeight: "bold",

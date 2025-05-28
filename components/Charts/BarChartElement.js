@@ -7,12 +7,25 @@ import { useLanguage } from "../../store/context/LanguageContext";
 
 const { width, height } = Dimensions.get("window");
 
+/**
+ * The BarChartElement component displays a bar chart of the user's expenses and incomes over the last 6 months.
+ * The component takes a currentDate as a prop and displays the expenses and incomes for the 6 months preceding the currentDate.
+ * The component also displays a legend with the labels "income" and "expense".
+ */
 function BarChartElement({ currentDate }) {
   const { translate } = useLanguage();
   const expensesCtx = useContext(ExpenseEntriesContext);
 
   const [barMaxValue, setBarMaxValue] = useState(0);
 
+  /**
+   * Generates an array of six objects, each with a month, year, income, and expenses property.
+   * The objects are sorted in descending order by month and year.
+   * The income and expenses properties are the sum of all income and expenses for the respective month.
+   * The function also sets the barMaxValue state to the maximum value of the income and expenses properties.
+   * The function is called in the useEffect hook and the result is stored in the data state.
+   * The data state is then used to render the bar chart.
+   */
   function getLastSixMonths() {
     let monthlyData = [
       {
@@ -68,6 +81,10 @@ function BarChartElement({ currentDate }) {
       },
     ];
 
+    /**
+     * Iterates through the expenses and adds the amount to the corresponding month and year in the monthlyData array.
+     * The function also sets the barMaxValue state to the maximum value of the income and expenses properties.
+     */
     expensesCtx.expenses.forEach((expense) => {
       for (let i = 0; i < monthlyData.length; i++) {
         if (
@@ -83,12 +100,19 @@ function BarChartElement({ currentDate }) {
       }
     });
 
+    /**
+     * Iterates through the monthlyData array and sets the barMaxValue state to the maximum value of the income and expenses properties.
+     */
     monthlyData.forEach((month) => {
       if (month.income > barMaxValue || month.expenses > barMaxValue) {
         setBarMaxValue(Math.max(month.income, month.expenses));
       }
     });
 
+    /**
+     * Generates an array of objects to be used to render the bar chart.
+     * Each object has a value, frontColor, and label property.
+     */
     const data = [
       {
         value: monthlyData[0].income,
@@ -145,6 +169,14 @@ function BarChartElement({ currentDate }) {
     return data;
   }
 
+  /**
+   * Return the upper scale of the bar chart. The scale is determined by the
+   * maximum value of the bars. If the maximum value is less than 1000, the
+   * scale is set to 1000. If the maximum value is less than 10000, the scale
+   * is set to 10000, and so on until the maximum value is greater than or
+   * equal to 1000000, at which point the scale is set to 1000000.
+   * @returns {number} the upper scale of the bar chart
+   */
   function returnBarUpperScale() {
     if (barMaxValue < 1000) {
       return 1000;
@@ -165,6 +197,11 @@ function BarChartElement({ currentDate }) {
     }
   }
 
+  /**
+   * Return the name of the month given its number.
+   * @param {number} number - The number of the month (0-11).
+   * @returns {string} The name of the month.
+   */
   function getMonthName(number) {
     switch (number) {
       case 0:
@@ -247,12 +284,8 @@ export default BarChartElement;
 
 const styles = StyleSheet.create({
   rootContainer: {
-
-
     justifyContent: "flex-start",
     alignItems: "center",
-
-    // marginRight: height * 0.03,
   },
   barChartTitle: {
     marginBottom: height * 0.1,

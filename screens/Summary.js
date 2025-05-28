@@ -2,9 +2,7 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from "react-native";
 import RoundButton from "../components/RoundButton";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ExpenseEntriesContextProvider, {
-  ExpenseEntriesContext,
-} from "../store/context/ExpenseEntriesContext";
+import { ExpenseEntriesContext } from "../store/context/ExpenseEntriesContext";
 import { useContext, useState, useEffect } from "react";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { GlobalStyles } from "../constants/GlobalStyles";
@@ -17,20 +15,30 @@ import WalletDashboard from "../components/WalletDashboard";
 
 const { height } = Dimensions.get("window");
 
+/**
+ * The main screen of the app. It displays the current month's balance and
+ * the average monthly expense. It also shows a list of the last five expenses
+ * and has a button to add a new expense.
+ */
 function Main() {
-  const { language, changeLanguage, translate } = useLanguage();
+  const { translate } = useLanguage();
   const expensesCtx = useContext(ExpenseEntriesContext);
 
   const [currentBalance, setCurrentBalance] = useState(0);
-  const [currentMonthlyAverage, setCurrentMonthlyAverage] = useState(0);
   let sortArr = expensesCtx.expenses;
 
+  /**
+   * Calculates the current month's balance and the average monthly expense.
+   */
   useEffect(() => {
     expensesCtx.processPendingExpenses();
     setCurrentBalance(calculateCurrentMonthBalance());
-    // setCurrentMonthlyAverage(calculateAverageMonthlyExpense());
   });
 
+  /**
+   * Adds the dummy expenses to the database. This is used for development purposes
+   * only.
+   */
   function addDummyData() {
     DUMMY_EXPENSES.forEach((expense) => {
       expensesCtx.addExpense(
@@ -43,15 +51,29 @@ function Main() {
     });
   }
 
+  /**
+   * Sorts the expenses by date and returns the last five expenses.
+   */
   const newestExpenses = [...sortArr]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
+  /**
+   * Navigates to the "AddExpense" screen when the "Add" button is pressed.
+   */
   const navigator = useNavigation();
   function addPressHandler() {
     navigator.navigate("AddExpense");
   }
 
+  /**
+   * Calculates the current month's balance by iterating through the expenses
+   * and summing up the amounts of all expenses and incomes that fall within
+   * the current month and year.
+   *
+   * @returns {string} The balance of the current month, rounded to two decimal
+   * places.
+   */
   function calculateCurrentMonthBalance() {
     let balance = 0;
     expensesCtx.expenses.forEach((expense) => {
@@ -67,33 +89,6 @@ function Main() {
       }
     });
     return balance.toFixed(2);
-  }
-
-  function calculateAverageMonthlyExpense() {
-    let expenses = expensesCtx.expenses;
-    // 1. Group expenses by month
-    const monthlyExpenses = expenses.reduce((acc, expense) => {
-      const date = new Date(expense.date);
-      const monthYear = `${date.getFullYear()}-${date.getMonth() + 1}`;
-
-      if (!acc[monthYear]) {
-        acc[monthYear] = 0;
-      }
-      acc[monthYear] += expense.amount;
-      return acc;
-    }, {});
-
-    // 2. Sum all monthly totals
-    const totalExpense = Object.values(monthlyExpenses).reduce(
-      (sum, monthTotal) => sum + monthTotal,
-      0
-    );
-
-    // 3. Calculate average
-    const numberOfMonths = Object.keys(monthlyExpenses).length;
-    const averageMonthlyExpense = totalExpense / numberOfMonths;
-
-    return parseFloat(averageMonthlyExpense).toFixed(2);
   }
 
   return (
@@ -114,10 +109,7 @@ function Main() {
           <FlatList
             data={newestExpenses}
             renderItem={(itemData) => (
-              <ExpenseEntry
-                itemData={itemData}
-                style={{  }}
-              />
+              <ExpenseEntry itemData={itemData} style={{}} />
             )}
             keyExtractor={(item) => item.id}
           />
@@ -125,7 +117,11 @@ function Main() {
       </SafeAreaView>
 
       <RoundButton pressHandler={addPressHandler}>
-        <Ionicons name="add" size={height * 0.03} color={GlobalStyles.colors.iconColor} />
+        <Ionicons
+          name="add"
+          size={height * 0.03}
+          color={GlobalStyles.colors.iconColor}
+        />
       </RoundButton>
     </>
   );

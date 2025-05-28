@@ -1,22 +1,39 @@
-import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native";
-import {
-  SafeAreaView,
-  SafeAreaProvider,
-  SafeAreaInsetsContext,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { Text, View, StyleSheet, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { tipsListEn, tipsListLt } from "../constants/TipsList";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../constants/GlobalStyles";
 import { Dimensions } from "react-native";
-import RoundButton from "../components/RoundButton";
 import { useLanguage } from "../store/context/LanguageContext";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+
+/**
+ * Component that displays a series of tips with the ability to navigate
+ * through them. The tips are displayed based on the currently selected
+ * language. Users can navigate to the next or previous tip using the
+ * provided buttons.
+ *
+ * State:
+ * - tipsList: List of tips based on the selected language.
+ * - currentHeader: The header/title of the current tip.
+ * - currentTip: The content of the current tip.
+ * - currentIndex: Index of the currently displayed tip in tipsList.
+ *
+ * Functions:
+ * - nextTipHandler: Advances to the next tip in the list, or loops back to the
+ *   first tip if currently at the last.
+ * - previousTipHandler: Moves to the previous tip, or loops to the last tip if
+ *   currently at the first.
+ */
 
 function Tips() {
   const { language } = useLanguage();
+
+  /**
+   * Sets the list of tips based on the selected language.
+   */
   const [tipsList, setTipsList] = useState(
     language === "lt" ? tipsListLt : tipsListEn
   );
@@ -24,6 +41,10 @@ function Tips() {
   const [currentTip, setCurrentTip] = useState(tipsList[0][1]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  /**
+   * Advances to the next tip in the list, or loops back to the
+   * first tip if currently at the last.
+   */
   function nextTipHandler() {
     if (currentIndex < tipsList.length - 1) {
       setCurrentHeader(tipsList[currentIndex + 1][0]);
@@ -36,6 +57,10 @@ function Tips() {
     }
   }
 
+  /**
+   * Moves to the previous tip, or loops to the last tip if
+   * currently at the first.
+   */
   function previousTipHandler() {
     if (currentIndex > 0) {
       setCurrentHeader(tipsList[currentIndex - 1][0]);
@@ -57,10 +82,18 @@ function Tips() {
 
       <View style={styles.buttonContainer}>
         <Pressable onPress={previousTipHandler}>
-          <Ionicons name="arrow-back" size={height * 0.05} color= {GlobalStyles.colors.iconColor} />
+          <Ionicons
+            name="arrow-back"
+            size={height * 0.05}
+            color={GlobalStyles.colors.iconColor}
+          />
         </Pressable>
         <Pressable onPress={nextTipHandler}>
-          <Ionicons name="arrow-forward" size={height * 0.05} color={GlobalStyles.colors.iconColor} />
+          <Ionicons
+            name="arrow-forward"
+            size={height * 0.05}
+            color={GlobalStyles.colors.iconColor}
+          />
         </Pressable>
       </View>
     </SafeAreaView>
@@ -78,7 +111,6 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.05,
     paddingHorizontal: height * 0.025,
   },
-
 
   buttonContainer: {
     flexDirection: "row",

@@ -7,42 +7,44 @@ import {
   Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import RoundButton from "../components/RoundButton";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
-import ExpenseEntriesContextProvider, {
-  ExpenseEntriesContext,
-} from "../store/context/ExpenseEntriesContext";
+import { ExpenseEntriesContext } from "../store/context/ExpenseEntriesContext";
 import { useContext, useState, useEffect, use } from "react";
-import { BarChart } from "react-native-gifted-charts";
 
 import { GlobalStyles } from "../constants/GlobalStyles";
 
 import SimpleButton from "../components/SimpleButton";
 import SimpleIconButton from "../components/ui/SimpleIconButton";
 import PieChartElement from "../components/Charts/PieChartElement";
-import PieChartLegend from "../components/Charts/PieChartLegend";
+
 import BarChartElement from "../components/Charts/BarChartElement";
-import {
-  SafeAreaView,
-  SafeAreaProvider,
-  SafeAreaInsetsContext,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useLanguage } from "../store/context/LanguageContext";
 
 const { width, height } = Dimensions.get("window");
 
+/**
+ * The ExpenseStatistics component displays all relevant statistics of the user's expenses and incomes.
+ * It also allows the user to switch between a bar chart and a pie chart.
+ * The bar chart displays the expenses and incomes for the current month and the previous months.
+ * The pie chart displays the distribution of expenses and incomes for the current month.
+ * The user can navigate between the different months using the buttons in the bar chart.
+ * The user can also switch between the bar chart and the pie chart by pressing the button with the circular arrow icon.
+ */
 function ExpenseStatistics() {
   const { translate } = useLanguage();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [barMaxValue, setBarMaxValue] = useState(0);
-  const [pieChartAllShown, setPieChartAllShown] = useState(true);
   const [chartShown, setChartShown] = useState("bar");
   const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
   const [totalIncomeAmount, setTotalIncomeAmount] = useState(0);
   const [averageExpenseAmount, setAverageExpenseAmount] = useState(0);
   const [averageIncomeAmount, setAverageIncomeAmount] = useState(0);
 
+  /**
+   * Runs caluculations to get the total expense and income amount and the average expense and income amount per month.
+   */
   useEffect(() => {
     setTotalExpenseAmount(getTotalExpenseAmount());
     setTotalIncomeAmount(getTotalIncomeAmount());
@@ -53,10 +55,18 @@ function ExpenseStatistics() {
   const expensesCtx = useContext(ExpenseEntriesContext);
 
   const navigator = useNavigation();
+  /**
+   * Navigates to the "AddExpense" screen when the "Add expense" button is pressed.
+   */
   function addPressHandler() {
     navigator.navigate("AddExpense");
   }
 
+  /**
+   * Sets the currentDate one month back when the "Previous" button in the bar chart is pressed.
+   * If the currentDate is January, it sets the year to the previous year and the month to December.
+   * Otherwise it just sets the month to the previous month.
+   */
   function handleBarBackPress() {
     setCurrentDate((prevDate) => {
       if (prevDate.getMonth() === 0) {
@@ -70,6 +80,12 @@ function ExpenseStatistics() {
       }
     });
   }
+
+  /**
+   * Sets the currentDate one month forward when the "Next" button in the bar chart is pressed.
+   * If the currentDate is December, it sets the year to the next year and the month to January.
+   * Otherwise, it just sets the month to the next month.
+   */
 
   function handleBarNextPress() {
     setCurrentDate((prevDate) => {
@@ -85,10 +101,18 @@ function ExpenseStatistics() {
     });
   }
 
+  /**
+   * Sets the currentDate to the current date when the "Current date" button in the bar chart is pressed.
+   */
   function handleBarCurrentDatePress() {
     setCurrentDate(new Date());
   }
 
+  /**
+   * Changes the type of chart shown when the "Change chart type" button is pressed.
+   * If the bar chart is shown, it sets the chartShown state to "pie".
+   * If the pie chart is shown, it sets the chartShown state to "bar".
+   */
   function handleChartChange() {
     if (chartShown === "bar") {
       setChartShown("pie");
@@ -97,6 +121,11 @@ function ExpenseStatistics() {
     }
   }
 
+  /**
+   * Calculates the total expense amount in the given expenses context.
+   * Ignores income entries.
+   * @returns {string} The total expense amount, rounded to two decimal places.
+   */
   function getTotalExpenseAmount() {
     let sum = 0;
     expensesCtx.expenses.forEach((expense) => {
@@ -107,6 +136,11 @@ function ExpenseStatistics() {
     return sum.toFixed(2);
   }
 
+  /**
+   * Calculates the total income amount in the given expenses context.
+   * Ignores expense entries.
+   * @returns {string} The total income amount, rounded to two decimal places.
+   */
   function getTotalIncomeAmount() {
     let sum = 0;
     expensesCtx.expenses.forEach((expense) => {
@@ -116,6 +150,15 @@ function ExpenseStatistics() {
     });
     return sum.toFixed(2);
   }
+
+  /**
+   * Calculates the average monthly expense over the past 24 months.
+   * Iterates through the expenses, groups them by month, and calculates
+   * the sum for each month. Ignores months with no expenses. Finally,
+   * calculates the average of these monthly sums.
+   *
+   * @returns {string} The average monthly expense, rounded to two decimal places.
+   */
 
   function getExpensePerMonth() {
     let currentDate = new Date(
@@ -153,6 +196,14 @@ function ExpenseStatistics() {
     return (sum / monthCount).toFixed(2);
   }
 
+  /**
+   * Calculates the average monthly income over the past 24 months.
+   * Iterates through the expenses, groups them by month, and calculates
+   * the sum for each month. Ignores months with no income. Finally,
+   * calculates the average of these monthly sums.
+   *
+   * @returns {string} The average monthly income, rounded to two decimal places.
+   */
   function getIncomePerMonth() {
     let currentDate = new Date(
       new Date().getFullYear(),
@@ -190,6 +241,13 @@ function ExpenseStatistics() {
     return (sum / monthCount).toFixed(2);
   }
 
+  /**
+   * Renders either a bar chart or a pie chart, depending on the state of `chartShown`.
+   * The bar chart shows the income and expenses for the current month, and offers
+   * buttons to navigate to the previous or next month.
+   * The pie chart shows the distribution of expenses among the categories.
+   * @returns {JSX.Element} The rendered chart.
+   */
   function renderDiagram() {
     if (chartShown === "bar") {
       return (
@@ -348,7 +406,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: GlobalStyles.colors.backgroundMain,
     justifyContent: "flex-start",
-    // alignItems: "center",
     paddingVertical: height * 0.02,
   },
 
@@ -435,7 +492,6 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    // backgroundColor: GlobalStyles.colors.button,
     marginTop: height * 0.015,
     paddingVertical: height * 0.01,
     paddingHorizontal: height * 0.02,

@@ -1,14 +1,30 @@
 import { View, Text, TextInput, StyleSheet, Dimensions } from "react-native";
-import { useState } from "react";
 import { useLanguage } from "../../store/context/LanguageContext";
-
 import { GlobalStyles } from "../../constants/GlobalStyles";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+/**
+ * Component for adding or editing an amount.
+ *
+ * @param {Object} props - The component props.
+ * @param {number|string} props.amount - The current amount to display in the input field.
+ * @param {function} props.setAmount - Function to update the amount based on user input.
+ * @param {boolean} [props.amountFocus=false] - If true, the input field will automatically focus when the component mounts.
+ *
+ * @returns {JSX.Element} A view containing a text input for the amount and a translated label.
+ */
+
 function AddEditAmount({ amount, setAmount, amountFocus = false }) {
   const allowedChars = /^[+]?[0-9]*(\.[0-9]*)?$/;
-  const { language, translate } = useLanguage();
+  const { translate } = useLanguage();
 
+  /**
+   * Handles user input for the amount.
+   *
+   * If the input is valid according to the allowedChars regex, then the setAmount function is called with the input.
+   *
+   * @param {string} input - The user's input for the amount.
+   */
   function handleInput(input) {
     if (allowedChars.test(input)) {
       setAmount(input);

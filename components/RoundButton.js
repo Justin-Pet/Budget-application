@@ -1,9 +1,14 @@
-import { View, Text, StyleSheet, Pressable,Dimensions } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, StyleSheet, Pressable,Dimensions } from "react-native";
 import { GlobalStyles } from "../constants/GlobalStyles";
 
-const { width, height } = Dimensions.get("window");
+const {  height } = Dimensions.get("window");
 
+/**
+ * A component that renders a round button.
+ *
+ * @param {{ pressHandler: () => void, children: React.ReactNode, style?: ViewStyle }} props
+ * @returns {JSX.Element}
+ */
 function RoundButton({ pressHandler, children, style }) {
   return (
     <Pressable style={({pressed}) => pressed && styles.pressed} onPressOut={pressHandler}>

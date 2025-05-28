@@ -1,6 +1,4 @@
 import {
-  View,
-  Button,
   StyleSheet,
   Pressable,
   Text,
@@ -8,7 +6,13 @@ import {
 } from "react-native";
 import { GlobalStyles } from "../../constants/GlobalStyles";
 
-const { width, height } = Dimensions.get("window");
+const {  height } = Dimensions.get("window");
+/**
+ * A primary button component.
+ *
+ * @param {{ onPress: function, buttonText: string, buttonColor?: string }} props
+ * @returns {JSX.Element}
+ */
 function PrimaryButton({ onPress, buttonText, buttonColor }) {
   return (
     <Pressable

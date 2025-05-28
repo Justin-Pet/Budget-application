@@ -1,7 +1,21 @@
-import { View, Text, Pressable, StyleSheet, Dimensions } from "react-native";
+import {  Text, Pressable, StyleSheet, Dimensions } from "react-native";
 import { GlobalStyles } from "../constants/GlobalStyles";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
+/**
+ * SimpleButton - A simple button that can be used in various parts of the app.
+ *               It is a Pressable component with a Text inside.
+ *               The button's style can be customized with the 'style' prop.
+ *               The button's text style can be customized with the 'buttonStyleText' prop.
+ *               The button's text can be customized with the 'buttonText' prop.
+ *               The button's onPress function can be customized with the 'onPress' prop.
+ *
+ * @param {Object} props - The props to be passed to the component.
+ * @param {function} [props.onPress] - The function to be called when the button is pressed.
+ * @param {string} [props.buttonText] - The button's text.
+ * @param {Object} [props.style] - The style object to be used for the button.
+ * @param {Object} [props.buttonStyleText] - The style object to be used for the button's text.
+ */
 function SimpleButton({
   children,
   onPress,

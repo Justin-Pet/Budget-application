@@ -27,7 +27,20 @@ import WalletSelector from "../components/AddEditScreens/WalletSelector";
 import ReoccuringPaymentSelector from "../components/AddEditScreens/ReoccuringPaymentSelector";
 
 const { height } = Dimensions.get("window");
-function AddExpense({route, navigation}) {
+/**
+ * Component responsible for adding a new expense. It allows users to input
+ * details such as category, amount, comment, date, type, and whether the 
+ * expense is reoccurring. It interacts with the `ExpenseEntriesContext` to 
+ * store the expense data and update the current wallet balance accordingly.
+ * The component also utilizes a `WalletSelector` to select the current wallet
+ * and a `ReoccuringPaymentSelector` for reoccurring expenses. Once the expense
+ * is added, it navigates to the Summary screen in the BottomTabs.
+ *
+ * @param {object} route - The route object containing navigation parameters.
+ * @param {object} navigation - The navigation object for screen transitions.
+ */
+
+function AddExpense({ route, navigation }) {
   const navigator = useNavigation();
   const { translate } = useLanguage();
   const expenseCtx = useContext(ExpenseEntriesContext);
@@ -39,21 +52,25 @@ function AddExpense({route, navigation}) {
   const [currentWallet, setCurrentWallet] = useState();
   const [reoccuringPayment, setReoccuringPayment] = useState(false);
 
-
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <WalletSelector
-        currentWallet={currentWallet}
-        setCurrentWallet={setCurrentWallet}
-      />
-     ),
+          currentWallet={currentWallet}
+          setCurrentWallet={setCurrentWallet}
+        />
+      ),
     });
   }, [navigation]);
 
-
-   function addExpenseToStore() {
+  /**
+   * Adds a new expense to the store, either as a reoccurring or single expense.
+   * It checks for empty category or amount fields and shows an alert in such case.
+   * If the expense is reoccurring, it calls `addReoccuringExpense` on the context.
+   * If not, it calls `addExpense` and also updates the current wallet balance.
+   * Finally, it navigates to the Summary screen in the BottomTabs.
+   */
+  function addExpenseToStore() {
     if (reoccuringPayment) {
       if (category === "" || amount === "") {
         return alert("Please enter a category and amount");
@@ -100,7 +117,7 @@ function AddExpense({route, navigation}) {
               setAmount={setAmount}
               amountFocus={true}
             />
-         
+
             <View style={styles.categoryContainer}>
               <CategoriesPart
                 category={category}

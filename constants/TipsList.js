@@ -1,3 +1,6 @@
+/**
+ * List of tips in Lithuanian
+ */
 export const tipsListLt = [
   [
     "Sudarykite detalų biudžetą ir sekite visas išlaidas",
@@ -32,7 +35,9 @@ export const tipsListLt = [
   ],
 ];
 
-
+/**
+ * English tips list
+ */
 export const tipsListEn = [
   [
   "Create a detailed budget and track all expenses",

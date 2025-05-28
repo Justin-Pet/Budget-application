@@ -9,15 +9,11 @@ import {
 import { useContext, useState } from "react";
 import { ExpenseEntriesContext } from "../store/context/ExpenseEntriesContext";
 import SimpleButton from "../components/SimpleButton";
-import RoundButton from "../components/RoundButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../constants/GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { LineChart } from "react-native-gifted-charts";
 import { useLanguage } from "../store/context/LanguageContext";
-
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 function TransferBetweenWallets({ onPress }) {
   const { translate } = useLanguage();
@@ -26,12 +22,25 @@ function TransferBetweenWallets({ onPress }) {
   const [amount, setAmount] = useState("");
   const [primaryWallet, setPrimaryWallet] = useState("wallet");
 
+  /**
+   * Checks if the input is a valid number
+   */
   const allowedChars = /^[+]?[0-9]*(\.[0-9]*)?$/;
+  /**
+   * Validates the input string against allowed characters and updates
+   * the amount state if valid.
+   *
+   * @param {string} input - The input string to validate and set as the amount.
+   */
   function handleInput(input) {
     if (allowedChars.test(input)) {
       setAmount(input);
     }
   }
+  /**
+   * Handles the wallet change event by switching the primary wallet
+   * between the two available wallets, i.e. "wallet" and "bankWallet".
+   */
   function handleWalletChange() {
     if (primaryWallet === "wallet") {
       setPrimaryWallet("bankWallet");
@@ -39,6 +48,14 @@ function TransferBetweenWallets({ onPress }) {
       setPrimaryWallet("wallet");
     }
   }
+  /**
+   * Renders the wallet swap section of the "Transfer between wallets" screen.
+   * Depending on the current primary wallet, it displays the wallet amounts
+   * of the primary and secondary wallet, with the option to swap the primary
+   * wallet on press.
+   *
+   * @returns {JSX.Element} The rendered wallet swap section.
+   */
   function renderWalletSwap() {
     if (primaryWallet === "wallet") {
       return (
@@ -128,6 +145,13 @@ function TransferBetweenWallets({ onPress }) {
     }
   }
 
+  /**
+   * Handles the transfer between wallets by first checking if the amount
+   * is empty. If not, it transfers the amount from the primary wallet to
+   * the secondary wallet by subtracting the amount from the primary wallet
+   * and adding it to the secondary wallet. Finally, it navigates to the
+   * "Summary" screen.
+   */
   function handleTransfer() {
     if (amount === "") {
       return alert(translate("AlertAmount"));
@@ -139,7 +163,6 @@ function TransferBetweenWallets({ onPress }) {
       expensesCtx.subtractWallet(parseFloat(amount), "bankWallet");
       expensesCtx.addWallet(parseFloat(amount), "wallet");
     }
-    // setAmount("");
     navigation.navigate("BottomTabs", { screen: "Summary" });
   }
 
@@ -182,7 +205,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    // paddingTop: height * 0.15,
     backgroundColor: GlobalStyles.colors.backgroundMain,
   },
 

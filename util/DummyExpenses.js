@@ -1,4 +1,8 @@
 
+/**
+ * Dummy data for testing purposes randomly generated. No wallet used adding is set up.
+ */
+
 export const DUMMY_EXPENSES = [
   {
     id: "e1",

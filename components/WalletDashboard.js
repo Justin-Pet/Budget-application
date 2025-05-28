@@ -9,6 +9,11 @@ import { useLanguage } from "../store/context/LanguageContext";
 
 const { height } = Dimensions.get("window");
 
+/**
+ * Displays the current balance of the wallet and bank wallet.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function WalletDashboard() {
   const { translate } = useLanguage();
   const expenseEntriesCtx = useContext(ExpenseEntriesContext);

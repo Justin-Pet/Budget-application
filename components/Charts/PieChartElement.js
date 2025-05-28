@@ -6,15 +6,26 @@ import { useContext } from "react";
 import { ExpenseEntriesContext } from "../../store/context/ExpenseEntriesContext";
 import { PieChartColors } from "../../constants/PieChartColors";
 import { useLanguage } from "../../store/context/LanguageContext";
-import SimpleButton from "../SimpleButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SimpleIconButton from "../ui/SimpleIconButton";
 import PieChartLegend from "./PieChartLegend";
 import { getFormatedDateYM } from "../../util/date";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+/**
+ * PieChartElement component displays a pie chart representing the distribution
+ * of expenses over different categories for a specific month. It allows users
+ * to navigate between months and view the percentage breakdown for each category.
+ * The pie chart is updated when the month changes or when there is a change in
+ * the expenses context. If no data is available for the selected month, a message
+ * indicating the absence of data is displayed.
+ *
+ * @param {boolean} pieChartAllShown - A prop that determines if all pie chart data
+ * should be initially shown.
+ */
+
 function PieChartElement({ pieChartAllShown }) {
-  const { language, translate } = useLanguage();
+  const { translate } = useLanguage();
   const expensesCtx = useContext(ExpenseEntriesContext);
 
   const [pieMonth, setPieMonth] = useState(
@@ -23,114 +34,20 @@ function PieChartElement({ pieChartAllShown }) {
   const [pieShown, setPieShown] = useState(true);
   const [pieData, setPieData] = useState([]);
 
+  /**
+   * Updates the pie chart data based on the selected month.
+   */
   useEffect(() => {
     getPieData();
   }, [pieMonth]);
-  function totalExpenseAmountPerCategory() {
-    let categories = [
-      {
-        description: "Groceries",
-        amount: 0,
-      },
-      {
-        description: "Bills",
-        amount: 0,
-      },
-      {
-        description: "Car",
-        amount: 0,
-      },
-      {
-        description: "Entertainment",
-        amount: 0,
-      },
-      {
-        description: "Family",
-        amount: 0,
-      },
-      {
-        description: "Health",
-        amount: 0,
-      },
 
-      {
-        description: "Education",
-        amount: 0,
-      },
-      {
-        description: "Home",
-        amount: 0,
-      },
-      {
-        description: "Other",
-        amount: 0,
-      },
-    ];
-
-    expensesCtx.expenses.forEach((expense) => {
-      categories.forEach((category) => {
-        if (expense.description === category.description) {
-          category.amount += parseFloat(expense.amount);
-        }
-      });
-    });
-
-    let totalAmount = 0;
-
-    categories.forEach((category) => {
-      totalAmount += category.amount;
-    });
-
-    const pieData = [
-      {
-        value: categories[0].amount,
-        color: PieChartColors.colors.groceries,
-        text: ((categories[0].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[1].amount,
-        color: PieChartColors.colors.bills,
-        text: ((categories[1].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[2].amount,
-        color: PieChartColors.colors.car,
-        text: ((categories[2].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[3].amount,
-        color: PieChartColors.colors.entertainment,
-        text: ((categories[3].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[4].amount,
-        color: PieChartColors.colors.family,
-        text: ((categories[4].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[5].amount,
-        color: PieChartColors.colors.health,
-        text: ((categories[5].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[6].amount,
-        color: PieChartColors.colors.education,
-        text: ((categories[6].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[7].amount,
-        color: PieChartColors.colors.home,
-        text: ((categories[7].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-      {
-        value: categories[8].amount,
-        color: PieChartColors.colors.other,
-        text: ((categories[8].amount / totalAmount) * 100).toFixed(2) + "%",
-      },
-    ];
-    return pieData;
-  }
-
+  /**
+   * Calculates the total balance from the expenses context. It takes the sum of all
+   * expenses and incomes and returns the balance as a string with the currency symbol
+   * and rounded to two decimal places. If the balance is negative, it returns
+   * a string with a minus sign followed by the balance and currency symbol.
+   * @returns {string} The total balance.
+   */
   function calculateTotalBalance() {
     let balance = 0;
     expensesCtx.expenses.forEach((expense) => {
@@ -148,6 +65,16 @@ function PieChartElement({ pieChartAllShown }) {
     }
   }
 
+  /**
+   * Calculates the balance of the current month. It iterates through the
+   * expenses in the expenses context and sums up the amounts of all expenses
+   * and incomes that fall within the current month and year. The balance is
+   * returned as a string with the currency symbol and rounded to two decimal
+   * places. If the balance is negative, it returns a string with a minus sign
+   * followed by the balance and currency symbol.
+   *
+   * @returns {string} The balance of the current month.
+   */
   function calculateCurrentMonthBalance() {
     let balance = 0;
     expensesCtx.expenses.forEach((expense) => {
@@ -169,6 +96,13 @@ function PieChartElement({ pieChartAllShown }) {
     }
   }
 
+  /**
+   * Determines the radius of the pie chart based on the device's screen height.
+   *
+   * @returns {number} The radius of the pie chart in pixels. Returns 150 if the
+   * height is greater than 950, 135 if greater than 800, otherwise 80.
+   */
+
   function getPieRadius() {
     if (height > 950) {
       return 150;
@@ -179,6 +113,15 @@ function PieChartElement({ pieChartAllShown }) {
     }
   }
 
+  /**
+   * Iterates through the expenses context and sums up the amounts of all expenses
+   * and incomes that fall within the current month and year. The function then
+   * creates an array of objects with the description, amount, and color of each
+   * category. The function also calculates the total amount of all expenses and
+   * incomes and determines the percentage of each category. If the total amount
+   * is 0, the function sets the pieShown state to false and returns 0. Otherwise,
+   * it sets the pieData state to the array of objects and sets pieShown to true.
+   */
   function getPieData() {
     let categories = [
       {
@@ -220,6 +163,10 @@ function PieChartElement({ pieChartAllShown }) {
       },
     ];
 
+    /**
+     * Iterates through the expenses context and sums up the amounts of all expenses
+     * and incomes that fall within the current month and year.
+     */
     expensesCtx.expenses.forEach((expense) => {
       if (
         expense.type == "expense" &&
@@ -247,6 +194,10 @@ function PieChartElement({ pieChartAllShown }) {
       setPieShown(true);
     }
 
+    /**
+     * Creates an array of objects with the description, amount, and color of each
+     * category.
+     */
     const pieData = [
       {
         value: categories[0].amount,
@@ -324,14 +275,31 @@ function PieChartElement({ pieChartAllShown }) {
     setPieData(pieData);
   }
 
+  /**
+   * Advances the pieMonth state to the next month while preserving the day.
+   * Sets the day to the 15th to avoid month-end discrepancies.
+   */
+
   function handleNextMonth() {
     setPieMonth(new Date(pieMonth.getFullYear(), pieMonth.getMonth() + 1, 15));
   }
+
+  /**
+   * Moves the pieMonth state to the previous month while preserving the day.
+   * Sets the day to the 15th to avoid month-end discrepancies.
+   */
 
   function handlePreviousMonth() {
     setPieMonth(new Date(pieMonth.getFullYear(), pieMonth.getMonth() - 1, 15));
   }
 
+  /**
+   * Renders a pie chart with the distribution of expenses among the categories.
+   * The categories are ordered by their amount, and the pie chart is sorted by
+   * value in descending order.
+   * If there is no data available, a message is displayed instead.
+   * @returns {JSX.Element} The rendered component.
+   */
   function renderContent() {
     if (pieShown) {
       return (
@@ -423,7 +391,6 @@ function PieChartElement({ pieChartAllShown }) {
             />
           </SimpleIconButton>
         </View>
-
       </View>
     </View>
   );
@@ -438,7 +405,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
 
     marginBottom: height * 0.01,
-
   },
   centerLabelText: {
     textAlign: "center",
@@ -453,7 +419,6 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.headerColor,
   },
 
- 
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",

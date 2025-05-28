@@ -3,7 +3,21 @@ import { GlobalStyles } from "../../constants/GlobalStyles";
 import { PieChartColors } from "../../constants/PieChartColors";
 import { useLanguage } from "../../store/context/LanguageContext";
 
-const { width, height } = Dimensions.get("window");
+const {  height } = Dimensions.get("window");
+/**
+ * Component to render a legend for the pie chart, displaying the name of each
+ * category and its corresponding color.
+ *
+ * The legend is split into two rows to make it easier to read and understand.
+ * The first row contains the following categories: Groceries, Bills, Car, Education,
+ * Home.
+ * The second row contains the following categories: Entertainment, Family, Health, Other.
+ *
+ * Each category is represented by a colored rectangle with a bold text
+ * displaying the name of the category in the user's language.
+ *
+ * @return {ReactElement} The rendered legend component.
+ */
 function PieChartLegend() {
   const { translate } = useLanguage();
   return (
@@ -94,7 +108,6 @@ export default PieChartLegend;
 const styles = StyleSheet.create({
   legendText: {
     width: "15%",
-    // backgroundColor: GlobalStyles.colors.primary200,
     marginHorizontal: height * 0.005,
     marginVertical: height * 0.005,
     textAlign: "center",
@@ -104,7 +117,6 @@ const styles = StyleSheet.create({
     color: GlobalStyles.colors.text,
   },
   legend: {
-    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },

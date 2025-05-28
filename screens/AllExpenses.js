@@ -15,6 +15,10 @@ import { useState } from "react";
 import { useLanguage } from "../store/context/LanguageContext";
 
 const { width, height } = Dimensions.get("window");
+/**
+ * This component displays all expenses and allows user to filter them
+ * by year and month. It also displays total amount of all expenses.
+ */
 function AllExpenses() {
   const { language, translate } = useLanguage();
 
@@ -29,6 +33,9 @@ function AllExpenses() {
   let currentDate = new Date();
   let monthShown = false;
 
+  /** 
+   * When the selected year changes, reset the selected month to "All".
+   */
   useEffect(() => {
     if (language == "en") {
       setSelectedMonth("All");
@@ -38,10 +45,19 @@ function AllExpenses() {
     monthShown = false;
   }, [selectedYear]);
 
+  /**
+   * When the selected month changes, reset the monthShown flag to false.
+   */
   useEffect(() => {
     monthShown = false;
   }, [selectedMonth]);
 
+  /**
+   * Given a month string in English or Lithuanian, return its corresponding
+   * month number (0-11).
+   *
+   * If the month string is not recognized, return the current month.
+   */
   function getSelectedMonth() {
     switch (selectedMonth) {
       case "January":
@@ -127,10 +143,18 @@ function AllExpenses() {
   });
 
   const navigator = useNavigation();
+  /**
+   * Navigation handler for the "Add expense" button. Navigates to the
+   * "AddExpense" screen.
+   */
   function addPressHandler() {
     navigator.navigate("AddExpense");
   }
 
+  /**
+   * Returns a filtered array of expenses based on the selected year and month.
+   * @returns {Expense[]} An array of filtered expenses.
+   */
   function filterExpenses() {
     const filteredExpenses = sortedExpenses.filter((expense) => {
       if (
@@ -156,47 +180,20 @@ function AllExpenses() {
     return filteredExpenses;
   }
 
-  // function renderExpense(itemData) {
-  //   if (currentDate.getMonth() != itemData.item.date.getMonth()) {
-  //     currentDate = new Date(itemData.item.date);
-  //     monthShown = false;
-  //   }
-
-  //   if (
-  //     monthShown == false &&
-  //     (selectedMonth == "All" || selectedMonth == "Visi") &&
-  //     (selectedYear == "All" || selectedYear == "Visi")
-  //   ) {
-  //     monthShown = true;
-  //     return (
-  //       <>
-  //         <View style={styles.dateHeaderContainer}>
-  //           <Text style={styles.dateHeaderText}>
-  //             {getFormatedDateYM(itemData.item.date)}
-  //           </Text>
-  //         </View>
-  //         <ExpenseEntry itemData={itemData} />
-  //       </>
-  //     );
-  //   } else if (
-  //     monthShown == true &&
-  //     currentDate.getMonth() == itemData.item.date.getMonth()
-  //   ) {
-  //     return <ExpenseEntry itemData={itemData} />;
-  //   } else if (monthShown == false) {
-  //     monthShown = true;
-  //     return (
-  //       <>
-  //         <View style={styles.dateHeaderContainer}>
-  //           <Text style={styles.dateHeaderText}>
-  //             {getFormatedDateYM(itemData.item.date)}
-  //           </Text>
-  //         </View>
-  //         <ExpenseEntry itemData={itemData} />
-  //       </>
-  //     );
-  //   }
-  // }
+/**
+ * Renders an expense entry with a date header if necessary.
+ * 
+ * This function checks if the current expense's date differs from
+ * the last rendered date. If the date has changed, a date header
+ * is displayed above the expense entry. Additionally, it handles
+ * the condition when all months and years are selected, ensuring
+ * a date header is shown only once per month.
+ *
+ * @param {Object} itemData - The data object containing item details.
+ * @param {Object} itemData.item - The expense item.
+ * @param {Date} itemData.item.date - The date of the expense item.
+ * @returns {JSX.Element} The rendered expense entry with optional date header.
+ */
 
   function renderExpense(itemData) {
     if (currentDate.getDate() != itemData.item.date.getDate()) {
@@ -240,6 +237,11 @@ function AllExpenses() {
     }
   }
 
+  /**
+   * Calculates the total amount of expenses (both positive and negative) based
+   * on the currently selected year and month.
+   * @returns {string} The total amount of expenses, formatted to two decimal places.
+   */
   function calculateExpensesAmount() {
     let sum = 0;
     const filteredExpenses = filterExpenses();
@@ -270,14 +272,17 @@ function AllExpenses() {
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
-              boxStyles={{ backgroundColor: GlobalStyles.colors.backGroundSecondary }}
+              boxStyles={{
+                backgroundColor: GlobalStyles.colors.backGroundSecondary,
+              }}
               dropdownTextStyles={{
                 fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
               dropdownStyles={{
-                backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
+                backgroundColor:
+                  GlobalStyles.colors.backGroundSecondaryInactive,
               }}
               search={false}
               placeholder={translate("Select_year")}
@@ -304,14 +309,17 @@ function AllExpenses() {
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
-              boxStyles={{ backgroundColor: GlobalStyles.colors.backGroundSecondary }}
+              boxStyles={{
+                backgroundColor: GlobalStyles.colors.backGroundSecondary,
+              }}
               dropdownTextStyles={{
                 fontSize: height * 0.02,
                 fontWeight: "bold",
                 color: GlobalStyles.colors.headerColor,
               }}
               dropdownStyles={{
-                backgroundColor: GlobalStyles.colors.backGroundSecondaryInactive,
+                backgroundColor:
+                  GlobalStyles.colors.backGroundSecondaryInactive,
               }}
               search={false}
               placeholder={translate("Select_month")}
@@ -333,7 +341,11 @@ function AllExpenses() {
         </View>
       </SafeAreaView>
       <RoundButton pressHandler={addPressHandler}>
-        <Ionicons name="add" size={height * 0.03} color= {GlobalStyles.colors.iconColor} />
+        <Ionicons
+          name="add"
+          size={height * 0.03}
+          color={GlobalStyles.colors.iconColor}
+        />
       </RoundButton>
     </>
   );
